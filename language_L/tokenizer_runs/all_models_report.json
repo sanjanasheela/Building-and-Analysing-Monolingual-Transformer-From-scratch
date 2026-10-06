@@ -1,0 +1,1163 @@
+{
+  "BPE_5000": {
+    "vocab_size_stats": {
+      "actual_vocab_size": 5000,
+      "special_tokens": [
+        "<pad>",
+        "<unk>",
+        "<bos>",
+        "<eos>"
+      ],
+      "num_special_tokens": 4
+    },
+    "token_frequency_stats": {
+      "total_unique_tokens_seen": 4402,
+      "vocab_coverage_pct": 88.11,
+      "mean_frequency": 1151.1,
+      "median_frequency": 460.0,
+      "std_frequency": 3574.44,
+      "max_frequency": 89710,
+      "min_frequency": 1,
+      "top_20_most_frequent": [
+        {
+          "token": "public",
+          "count": 89710
+        },
+        {
+          "token": ",",
+          "count": 83474
+        },
+        {
+          "token": "को",
+          "count": 78987
+        },
+        {
+          "token": "मा",
+          "count": 67702
+        },
+        {
+          "token": "र",
+          "count": 66424
+        },
+        {
+          "token": "छ",
+          "count": 62159
+        },
+        {
+          "token": "का",
+          "count": 52946
+        },
+        {
+          "token": "ले",
+          "count": 48310
+        },
+        {
+          "token": "।",
+          "count": 37410
+        },
+        {
+          "token": "लाई",
+          "count": 33790
+        },
+        {
+          "token": "न",
+          "count": 31367
+        },
+        {
+          "token": "पनि",
+          "count": 29880
+        },
+        {
+          "token": "भएको",
+          "count": 22555
+        },
+        {
+          "token": "म",
+          "count": 22284
+        },
+        {
+          "token": "स",
+          "count": 20664
+        },
+        {
+          "token": "क",
+          "count": 19004
+        },
+        {
+          "token": "हो",
+          "count": 18631
+        },
+        {
+          "token": "त",
+          "count": 18486
+        },
+        {
+          "token": "बाट",
+          "count": 18316
+        },
+        {
+          "token": "यो",
+          "count": 17552
+        }
+      ],
+      "bottom_20_least_frequent": [
+        {
+          "token": "‰",
+          "count": 1
+        },
+        {
+          "token": "º",
+          "count": 1
+        },
+        {
+          "token": "",
+          "count": 1
+        },
+        {
+          "token": "ł",
+          "count": 1
+        },
+        {
+          "token": "″",
+          "count": 1
+        },
+        {
+          "token": "）",
+          "count": 1
+        },
+        {
+          "token": "（",
+          "count": 1
+        },
+        {
+          "token": "∴",
+          "count": 1
+        },
+        {
+          "token": "˗",
+          "count": 1
+        },
+        {
+          "token": "†",
+          "count": 1
+        },
+        {
+          "token": "≤",
+          "count": 1
+        },
+        {
+          "token": "ø",
+          "count": 1
+        },
+        {
+          "token": "È",
+          "count": 1
+        },
+        {
+          "token": "−",
+          "count": 1
+        },
+        {
+          "token": "",
+          "count": 1
+        },
+        {
+          "token": "ü",
+          "count": 1
+        },
+        {
+          "token": "û",
+          "count": 1
+        },
+        {
+          "token": "─",
+          "count": 1
+        },
+        {
+          "token": "℃",
+          "count": 1
+        },
+        {
+          "token": "‬",
+          "count": 1
+        }
+      ]
+    },
+    "avg_chars_per_token": {
+      "avg_chars_per_token": 3.9386,
+      "median_chars_per_token": 4.0,
+      "std_chars_per_token": 2.2028,
+      "max_chars_in_token": 15,
+      "min_chars_in_token": 1
+    },
+    "tokenization_examples": [
+      {
+        "input": "नेपाल विभिन्न संस्कृति र परम्पराहरूको देश हो।",
+        "tokens": [
+          "नेपाल",
+          "विभिन्न",
+          "संस्कृति",
+          "र",
+          "परम्परा",
+          "हरूको",
+          "देश",
+          "हो",
+          "।"
+        ],
+        "token_count": 9,
+        "word_count": 7,
+        "fertility": 1.2857
+      },
+      {
+        "input": "नेपाली भाषा नेपालको राष्ट्रभाषाको रूपमा प्रयोग हुन्छ।",
+        "tokens": [
+          "नेपाली",
+          "भाषा",
+          "नेपालको",
+          "राष्ट्र",
+          "भाषा",
+          "को",
+          "रूपमा",
+          "प्रयोग",
+          "हुन्छ",
+          "।"
+        ],
+        "token_count": 10,
+        "word_count": 7,
+        "fertility": 1.4286
+      },
+      {
+        "input": "सगरमाथा विश्वको सबैभन्दा अग्लो हिमाल हो।",
+        "tokens": [
+          "स",
+          "गरमा",
+          "था",
+          "विश्व",
+          "को",
+          "सबैभन्दा",
+          "अग्",
+          "लो",
+          "हिमाल",
+          "हो",
+          "।"
+        ],
+        "token_count": 11,
+        "word_count": 6,
+        "fertility": 1.8333
+      },
+      {
+        "input": "प्रविधिले मानव जीवनलाई धेरै सजिलो बनाएको छ।",
+        "tokens": [
+          "प्रविधि",
+          "ले",
+          "मानव",
+          "जीवन",
+          "लाई",
+          "धेरै",
+          "सजिलो",
+          "बनाएको",
+          "छ",
+          "।"
+        ],
+        "token_count": 10,
+        "word_count": 7,
+        "fertility": 1.4286
+      },
+      {
+        "input": "काठमाडौं नेपालको राजधानी शहर हो।",
+        "tokens": [
+          "काठमाडौं",
+          "नेपालको",
+          "राजधानी",
+          "शहर",
+          "हो",
+          "।"
+        ],
+        "token_count": 6,
+        "word_count": 5,
+        "fertility": 1.2
+      }
+    ],
+    "unk_token_stats": {
+      "docs_evaluated": 96099,
+      "total_words": 3055834,
+      "total_tokens": 5067152,
+      "unk_count": 6,
+      "unk_rate_pct": 0.0001,
+      "fertility": 1.6582,
+      "oov_word_examples": [
+        "रिग्रुरूपीङ࠷गर्ने",
+        "क\\\u0000चिकेको",
+        "पाकिस्तानबीच\\\u0000नेपाली",
+        "▌│█│║▌║││█║▌"
+      ]
+    }
+  },
+  "BPE_7500": {
+    "vocab_size_stats": {
+      "actual_vocab_size": 7500,
+      "special_tokens": [
+        "<pad>",
+        "<unk>",
+        "<bos>",
+        "<eos>"
+      ],
+      "num_special_tokens": 4
+    },
+    "token_frequency_stats": {
+      "total_unique_tokens_seen": 6891,
+      "vocab_coverage_pct": 91.93,
+      "mean_frequency": 671.94,
+      "median_frequency": 247,
+      "std_frequency": 2549.24,
+      "max_frequency": 89710,
+      "min_frequency": 1,
+      "top_20_most_frequent": [
+        {
+          "token": "public",
+          "count": 89710
+        },
+        {
+          "token": ",",
+          "count": 83425
+        },
+        {
+          "token": "र",
+          "count": 62307
+        },
+        {
+          "token": "को",
+          "count": 61269
+        },
+        {
+          "token": "छ",
+          "count": 59932
+        },
+        {
+          "token": "मा",
+          "count": 49942
+        },
+        {
+          "token": "का",
+          "count": 41949
+        },
+        {
+          "token": "ले",
+          "count": 37256
+        },
+        {
+          "token": "।",
+          "count": 37071
+        },
+        {
+          "token": "पनि",
+          "count": 29645
+        },
+        {
+          "token": "लाई",
+          "count": 29636
+        },
+        {
+          "token": "भएको",
+          "count": 21516
+        },
+        {
+          "token": "न",
+          "count": 21032
+        },
+        {
+          "token": "हो",
+          "count": 18283
+        },
+        {
+          "token": "बाट",
+          "count": 16891
+        },
+        {
+          "token": "लागि",
+          "count": 16636
+        },
+        {
+          "token": "यो",
+          "count": 15799
+        },
+        {
+          "token": "गरेको",
+          "count": 15507
+        },
+        {
+          "token": "म",
+          "count": 15078
+        },
+        {
+          "token": "गर्ने",
+          "count": 14904
+        }
+      ],
+      "bottom_20_least_frequent": [
+        {
+          "token": "‰",
+          "count": 1
+        },
+        {
+          "token": "साझे",
+          "count": 1
+        },
+        {
+          "token": "धारित",
+          "count": 1
+        },
+        {
+          "token": "º",
+          "count": 1
+        },
+        {
+          "token": "",
+          "count": 1
+        },
+        {
+          "token": "ł",
+          "count": 1
+        },
+        {
+          "token": "सगरमा",
+          "count": 1
+        },
+        {
+          "token": "″",
+          "count": 1
+        },
+        {
+          "token": "वान्‌",
+          "count": 1
+        },
+        {
+          "token": "）",
+          "count": 1
+        },
+        {
+          "token": "（",
+          "count": 1
+        },
+        {
+          "token": "∴",
+          "count": 1
+        },
+        {
+          "token": "˗",
+          "count": 1
+        },
+        {
+          "token": "†",
+          "count": 1
+        },
+        {
+          "token": "म्बार",
+          "count": 1
+        },
+        {
+          "token": "≤",
+          "count": 1
+        },
+        {
+          "token": "बेरो",
+          "count": 1
+        },
+        {
+          "token": "ø",
+          "count": 1
+        },
+        {
+          "token": "È",
+          "count": 1
+        },
+        {
+          "token": "−",
+          "count": 1
+        }
+      ]
+    },
+    "avg_chars_per_token": {
+      "avg_chars_per_token": 4.3951,
+      "median_chars_per_token": 4.0,
+      "std_chars_per_token": 2.2683,
+      "max_chars_in_token": 15,
+      "min_chars_in_token": 1
+    },
+    "tokenization_examples": [
+      {
+        "input": "नेपाल विभिन्न संस्कृति र परम्पराहरूको देश हो।",
+        "tokens": [
+          "नेपाल",
+          "विभिन्न",
+          "संस्कृति",
+          "र",
+          "परम्परा",
+          "हरूको",
+          "देश",
+          "हो",
+          "।"
+        ],
+        "token_count": 9,
+        "word_count": 7,
+        "fertility": 1.2857
+      },
+      {
+        "input": "नेपाली भाषा नेपालको राष्ट्रभाषाको रूपमा प्रयोग हुन्छ।",
+        "tokens": [
+          "नेपाली",
+          "भाषा",
+          "नेपालको",
+          "राष्ट्र",
+          "भाषाको",
+          "रूपमा",
+          "प्रयोग",
+          "हुन्छ",
+          "।"
+        ],
+        "token_count": 9,
+        "word_count": 7,
+        "fertility": 1.2857
+      },
+      {
+        "input": "सगरमाथा विश्वको सबैभन्दा अग्लो हिमाल हो।",
+        "tokens": [
+          "सगरमाथा",
+          "विश्वको",
+          "सबैभन्दा",
+          "अग्",
+          "लो",
+          "हिमाल",
+          "हो",
+          "।"
+        ],
+        "token_count": 8,
+        "word_count": 6,
+        "fertility": 1.3333
+      },
+      {
+        "input": "प्रविधिले मानव जीवनलाई धेरै सजिलो बनाएको छ।",
+        "tokens": [
+          "प्रविधि",
+          "ले",
+          "मानव",
+          "जीवन",
+          "लाई",
+          "धेरै",
+          "सजिलो",
+          "बनाएको",
+          "छ",
+          "।"
+        ],
+        "token_count": 10,
+        "word_count": 7,
+        "fertility": 1.4286
+      },
+      {
+        "input": "काठमाडौं नेपालको राजधानी शहर हो।",
+        "tokens": [
+          "काठमाडौं",
+          "नेपालको",
+          "राजधानी",
+          "शहर",
+          "हो",
+          "।"
+        ],
+        "token_count": 6,
+        "word_count": 5,
+        "fertility": 1.2
+      }
+    ],
+    "unk_token_stats": {
+      "docs_evaluated": 96099,
+      "total_words": 3055834,
+      "total_tokens": 4630361,
+      "unk_count": 6,
+      "unk_rate_pct": 0.0001,
+      "fertility": 1.5153,
+      "oov_word_examples": [
+        "रिग्रुरूपीङ࠷गर्ने",
+        "क\\\u0000चिकेको",
+        "पाकिस्तानबीच\\\u0000नेपाली",
+        "▌│█│║▌║││█║▌"
+      ]
+    }
+  },
+  "BPE_10000": {
+    "vocab_size_stats": {
+      "actual_vocab_size": 10000,
+      "special_tokens": [
+        "<pad>",
+        "<unk>",
+        "<bos>",
+        "<eos>"
+      ],
+      "num_special_tokens": 4
+    },
+    "token_frequency_stats": {
+      "total_unique_tokens_seen": 9372,
+      "vocab_coverage_pct": 93.76,
+      "mean_frequency": 468.31,
+      "median_frequency": 158.0,
+      "std_frequency": 2046.12,
+      "max_frequency": 89710,
+      "min_frequency": 1,
+      "top_20_most_frequent": [
+        {
+          "token": "public",
+          "count": 89710
+        },
+        {
+          "token": ",",
+          "count": 83425
+        },
+        {
+          "token": "र",
+          "count": 59643
+        },
+        {
+          "token": "छ",
+          "count": 58583
+        },
+        {
+          "token": "को",
+          "count": 47707
+        },
+        {
+          "token": "मा",
+          "count": 38857
+        },
+        {
+          "token": "।",
+          "count": 36955
+        },
+        {
+          "token": "का",
+          "count": 34944
+        },
+        {
+          "token": "ले",
+          "count": 30460
+        },
+        {
+          "token": "पनि",
+          "count": 29293
+        },
+        {
+          "token": "लाई",
+          "count": 24898
+        },
+        {
+          "token": "भएको",
+          "count": 21412
+        },
+        {
+          "token": "हो",
+          "count": 17698
+        },
+        {
+          "token": "न",
+          "count": 17343
+        },
+        {
+          "token": "लागि",
+          "count": 16636
+        },
+        {
+          "token": "बाट",
+          "count": 15436
+        },
+        {
+          "token": "गरेको",
+          "count": 15411
+        },
+        {
+          "token": "यो",
+          "count": 14911
+        },
+        {
+          "token": "गर्ने",
+          "count": 14775
+        },
+        {
+          "token": "‘",
+          "count": 14691
+        }
+      ],
+      "bottom_20_least_frequent": [
+        {
+          "token": "लाइभमा",
+          "count": 1
+        },
+        {
+          "token": "चित्य",
+          "count": 1
+        },
+        {
+          "token": "हार्य",
+          "count": 1
+        },
+        {
+          "token": "‰",
+          "count": 1
+        },
+        {
+          "token": "साझे",
+          "count": 1
+        },
+        {
+          "token": "धारित",
+          "count": 1
+        },
+        {
+          "token": "न्तव्य",
+          "count": 1
+        },
+        {
+          "token": "समर्",
+          "count": 1
+        },
+        {
+          "token": "º",
+          "count": 1
+        },
+        {
+          "token": "",
+          "count": 1
+        },
+        {
+          "token": "ł",
+          "count": 1
+        },
+        {
+          "token": "सगरमा",
+          "count": 1
+        },
+        {
+          "token": "″",
+          "count": 1
+        },
+        {
+          "token": "[]",
+          "count": 1
+        },
+        {
+          "token": "सं०",
+          "count": 1
+        },
+        {
+          "token": "वान्‌",
+          "count": 1
+        },
+        {
+          "token": "）",
+          "count": 1
+        },
+        {
+          "token": "（",
+          "count": 1
+        },
+        {
+          "token": "स्थाना",
+          "count": 1
+        },
+        {
+          "token": "∴",
+          "count": 1
+        }
+      ]
+    },
+    "avg_chars_per_token": {
+      "avg_chars_per_token": 4.7091,
+      "median_chars_per_token": 4.0,
+      "std_chars_per_token": 2.3368,
+      "max_chars_in_token": 18,
+      "min_chars_in_token": 1
+    },
+    "tokenization_examples": [
+      {
+        "input": "नेपाल विभिन्न संस्कृति र परम्पराहरूको देश हो।",
+        "tokens": [
+          "नेपाल",
+          "विभिन्न",
+          "संस्कृति",
+          "र",
+          "परम्परा",
+          "हरूको",
+          "देश",
+          "हो",
+          "।"
+        ],
+        "token_count": 9,
+        "word_count": 7,
+        "fertility": 1.2857
+      },
+      {
+        "input": "नेपाली भाषा नेपालको राष्ट्रभाषाको रूपमा प्रयोग हुन्छ।",
+        "tokens": [
+          "नेपाली",
+          "भाषा",
+          "नेपालको",
+          "राष्ट्र",
+          "भाषाको",
+          "रूपमा",
+          "प्रयोग",
+          "हुन्छ",
+          "।"
+        ],
+        "token_count": 9,
+        "word_count": 7,
+        "fertility": 1.2857
+      },
+      {
+        "input": "सगरमाथा विश्वको सबैभन्दा अग्लो हिमाल हो।",
+        "tokens": [
+          "सगरमाथा",
+          "विश्वको",
+          "सबैभन्दा",
+          "अग्लो",
+          "हिमाल",
+          "हो",
+          "।"
+        ],
+        "token_count": 7,
+        "word_count": 6,
+        "fertility": 1.1667
+      },
+      {
+        "input": "प्रविधिले मानव जीवनलाई धेरै सजिलो बनाएको छ।",
+        "tokens": [
+          "प्रविधि",
+          "ले",
+          "मानव",
+          "जीवन",
+          "लाई",
+          "धेरै",
+          "सजिलो",
+          "बनाएको",
+          "छ",
+          "।"
+        ],
+        "token_count": 10,
+        "word_count": 7,
+        "fertility": 1.4286
+      },
+      {
+        "input": "काठमाडौं नेपालको राजधानी शहर हो।",
+        "tokens": [
+          "काठमाडौं",
+          "नेपालको",
+          "राजधानी",
+          "शहर",
+          "हो",
+          "।"
+        ],
+        "token_count": 6,
+        "word_count": 5,
+        "fertility": 1.2
+      }
+    ],
+    "unk_token_stats": {
+      "docs_evaluated": 96099,
+      "total_words": 3055834,
+      "total_tokens": 4388964,
+      "unk_count": 6,
+      "unk_rate_pct": 0.0001,
+      "fertility": 1.4363,
+      "oov_word_examples": [
+        "रिग्रुरूपीङ࠷गर्ने",
+        "क\\\u0000चिकेको",
+        "पाकिस्तानबीच\\\u0000नेपाली",
+        "▌│█│║▌║││█║▌"
+      ]
+    }
+  },
+  "BPE_12500": {
+    "vocab_size_stats": {
+      "actual_vocab_size": 12500,
+      "special_tokens": [
+        "<pad>",
+        "<unk>",
+        "<bos>",
+        "<eos>"
+      ],
+      "num_special_tokens": 4
+    },
+    "token_frequency_stats": {
+      "total_unique_tokens_seen": 11852,
+      "vocab_coverage_pct": 94.85,
+      "mean_frequency": 356.98,
+      "median_frequency": 114.0,
+      "std_frequency": 1750.92,
+      "max_frequency": 89710,
+      "min_frequency": 1,
+      "top_20_most_frequent": [
+        {
+          "token": "public",
+          "count": 89710
+        },
+        {
+          "token": ",",
+          "count": 82732
+        },
+        {
+          "token": "र",
+          "count": 58793
+        },
+        {
+          "token": "छ",
+          "count": 57550
+        },
+        {
+          "token": "को",
+          "count": 39409
+        },
+        {
+          "token": "।",
+          "count": 36955
+        },
+        {
+          "token": "मा",
+          "count": 33544
+        },
+        {
+          "token": "पनि",
+          "count": 29293
+        },
+        {
+          "token": "का",
+          "count": 29074
+        },
+        {
+          "token": "ले",
+          "count": 25295
+        },
+        {
+          "token": "लाई",
+          "count": 22348
+        },
+        {
+          "token": "भएको",
+          "count": 21168
+        },
+        {
+          "token": "हो",
+          "count": 17435
+        },
+        {
+          "token": "लागि",
+          "count": 16542
+        },
+        {
+          "token": "गरेको",
+          "count": 15411
+        },
+        {
+          "token": "गर्ने",
+          "count": 14671
+        },
+        {
+          "token": "‘",
+          "count": 14498
+        },
+        {
+          "token": "यो",
+          "count": 14268
+        },
+        {
+          "token": "बाट",
+          "count": 14075
+        },
+        {
+          "token": "न",
+          "count": 14054
+        }
+      ],
+      "bottom_20_least_frequent": [
+        {
+          "token": "लाइभमा",
+          "count": 1
+        },
+        {
+          "token": "चित्य",
+          "count": 1
+        },
+        {
+          "token": "हार्य",
+          "count": 1
+        },
+        {
+          "token": "‰",
+          "count": 1
+        },
+        {
+          "token": "साझे",
+          "count": 1
+        },
+        {
+          "token": "समाजवादीका",
+          "count": 1
+        },
+        {
+          "token": "धारित",
+          "count": 1
+        },
+        {
+          "token": "न्तव्य",
+          "count": 1
+        },
+        {
+          "token": "समर्",
+          "count": 1
+        },
+        {
+          "token": "º",
+          "count": 1
+        },
+        {
+          "token": "",
+          "count": 1
+        },
+        {
+          "token": "ł",
+          "count": 1
+        },
+        {
+          "token": "सगरमा",
+          "count": 1
+        },
+        {
+          "token": "″",
+          "count": 1
+        },
+        {
+          "token": "[]",
+          "count": 1
+        },
+        {
+          "token": "सं०",
+          "count": 1
+        },
+        {
+          "token": "मामि",
+          "count": 1
+        },
+        {
+          "token": "वान्‌",
+          "count": 1
+        },
+        {
+          "token": "）",
+          "count": 1
+        },
+        {
+          "token": "（",
+          "count": 1
+        }
+      ]
+    },
+    "avg_chars_per_token": {
+      "avg_chars_per_token": 4.9368,
+      "median_chars_per_token": 5.0,
+      "std_chars_per_token": 2.3634,
+      "max_chars_in_token": 18,
+      "min_chars_in_token": 1
+    },
+    "tokenization_examples": [
+      {
+        "input": "नेपाल विभिन्न संस्कृति र परम्पराहरूको देश हो।",
+        "tokens": [
+          "नेपाल",
+          "विभिन्न",
+          "संस्कृति",
+          "र",
+          "परम्परा",
+          "हरूको",
+          "देश",
+          "हो",
+          "।"
+        ],
+        "token_count": 9,
+        "word_count": 7,
+        "fertility": 1.2857
+      },
+      {
+        "input": "नेपाली भाषा नेपालको राष्ट्रभाषाको रूपमा प्रयोग हुन्छ।",
+        "tokens": [
+          "नेपाली",
+          "भाषा",
+          "नेपालको",
+          "राष्ट्र",
+          "भाषाको",
+          "रूपमा",
+          "प्रयोग",
+          "हुन्छ",
+          "।"
+        ],
+        "token_count": 9,
+        "word_count": 7,
+        "fertility": 1.2857
+      },
+      {
+        "input": "सगरमाथा विश्वको सबैभन्दा अग्लो हिमाल हो।",
+        "tokens": [
+          "सगरमाथा",
+          "विश्वको",
+          "सबैभन्दा",
+          "अग्लो",
+          "हिमाल",
+          "हो",
+          "।"
+        ],
+        "token_count": 7,
+        "word_count": 6,
+        "fertility": 1.1667
+      },
+      {
+        "input": "प्रविधिले मानव जीवनलाई धेरै सजिलो बनाएको छ।",
+        "tokens": [
+          "प्रविधि",
+          "ले",
+          "मानव",
+          "जीवनलाई",
+          "धेरै",
+          "सजिलो",
+          "बनाएको",
+          "छ",
+          "।"
+        ],
+        "token_count": 9,
+        "word_count": 7,
+        "fertility": 1.2857
+      },
+      {
+        "input": "काठमाडौं नेपालको राजधानी शहर हो।",
+        "tokens": [
+          "काठमाडौं",
+          "नेपालको",
+          "राजधानी",
+          "शहर",
+          "हो",
+          "।"
+        ],
+        "token_count": 6,
+        "word_count": 5,
+        "fertility": 1.2
+      }
+    ],
+    "unk_token_stats": {
+      "docs_evaluated": 96099,
+      "total_words": 3055834,
+      "total_tokens": 4230932,
+      "unk_count": 6,
+      "unk_rate_pct": 0.0001,
+      "fertility": 1.3845,
+      "oov_word_examples": [
+        "रिग्रुरूपीङ࠷गर्ने",
+        "क\\\u0000चिकेको",
+        "पाकिस्तानबीच\\\u0000नेपाली",
+        "▌│█│║▌║││█║▌"
+      ]
+    }
+  }
+}

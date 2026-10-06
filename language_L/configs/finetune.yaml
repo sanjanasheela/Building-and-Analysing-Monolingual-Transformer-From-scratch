@@ -1,0 +1,42 @@
+# Phase 3 reasoning finetuning for Model L (Nepali).
+# Architecture / tokenizer come from the pretrained run; only the
+# optimisation hyperparameters below are specific to finetuning.
+
+base_config: configs/51.yaml
+pretrained_checkpoint: checkpoints/checkpoints/step_0045000.pt
+
+training:
+  batch_size: 8
+  eval_batch_size: 8
+  epochs: 3
+  optimizer: AdamW
+  learning_rate: 0.0001
+  min_learning_rate: 0.00001
+  weight_decay: 0.01
+  beta1: 0.9
+  beta2: 0.95
+  epsilon: 1.0e-08
+  scheduler: cosine
+  warmup_steps: 30
+  max_grad_norm: 1.0
+  log_interval: 10
+  seed: 42
+
+checkpoint:
+  output_dir: finetuned_checkpoints
+  save_optimizer: true
+  save_scheduler: true
+  save_config: true
+
+hardware:
+  device: cuda
+  mixed_precision: false
+
+finetuning:
+  language: Nepali
+  prompt_style: "प्रश्न: ...\\nजवाफ:"
+  loss: answer_tokens_only
+  max_new_tokens: 64
+  train_file: finetuning/data/train_full.jsonl
+  val_file: finetuning/data/val_fixed.jsonl
+  test_file: finetuning/data/test_fixed.jsonl

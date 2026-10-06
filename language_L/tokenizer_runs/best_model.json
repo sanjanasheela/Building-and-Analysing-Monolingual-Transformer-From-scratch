@@ -1,0 +1,304 @@
+{
+  "selection": {
+    "model_key": "BPE_12500",
+    "algorithm": "BPE",
+    "vocab_size": 12500,
+    "unk_rate_pct": 0.0001,
+    "fertility": 1.3845,
+    "avg_chars_per_token": 4.9368,
+    "vocab_coverage_pct": 94.85,
+    "selection_score": 0.0
+  },
+  "test_report": {
+    "vocab_size_stats": {
+      "actual_vocab_size": 12500,
+      "special_tokens": [
+        "<pad>",
+        "<unk>",
+        "<bos>",
+        "<eos>"
+      ],
+      "num_special_tokens": 4
+    },
+    "token_frequency_stats": {
+      "total_unique_tokens_seen": 11848,
+      "vocab_coverage_pct": 94.81,
+      "mean_frequency": 361.0,
+      "median_frequency": 115.0,
+      "std_frequency": 1774.79,
+      "max_frequency": 90636,
+      "min_frequency": 1,
+      "top_20_most_frequent": [
+        {
+          "token": "public",
+          "count": 90636
+        },
+        {
+          "token": ",",
+          "count": 84317
+        },
+        {
+          "token": "र",
+          "count": 60372
+        },
+        {
+          "token": "छ",
+          "count": 57953
+        },
+        {
+          "token": "को",
+          "count": 39284
+        },
+        {
+          "token": "।",
+          "count": 38081
+        },
+        {
+          "token": "मा",
+          "count": 33033
+        },
+        {
+          "token": "पनि",
+          "count": 30565
+        },
+        {
+          "token": "का",
+          "count": 29175
+        },
+        {
+          "token": "ले",
+          "count": 25480
+        },
+        {
+          "token": "लाई",
+          "count": 22378
+        },
+        {
+          "token": "भएको",
+          "count": 20847
+        },
+        {
+          "token": "हो",
+          "count": 17698
+        },
+        {
+          "token": "लागि",
+          "count": 16990
+        },
+        {
+          "token": "गरेको",
+          "count": 15093
+        },
+        {
+          "token": "‘",
+          "count": 14945
+        },
+        {
+          "token": "गर्ने",
+          "count": 14713
+        },
+        {
+          "token": "यो",
+          "count": 14560
+        },
+        {
+          "token": "बाट",
+          "count": 14470
+        },
+        {
+          "token": "भने",
+          "count": 14366
+        }
+      ],
+      "bottom_20_least_frequent": [
+        {
+          "token": "",
+          "count": 1
+        },
+        {
+          "token": "सैद्धा",
+          "count": 1
+        },
+        {
+          "token": "यद्य",
+          "count": 1
+        },
+        {
+          "token": "¬",
+          "count": 1
+        },
+        {
+          "token": "⋙",
+          "count": 1
+        },
+        {
+          "token": "मेलम्",
+          "count": 1
+        },
+        {
+          "token": ";-",
+          "count": 1
+        },
+        {
+          "token": "य्‌",
+          "count": 1
+        },
+        {
+          "token": "धाज्ञा",
+          "count": 1
+        },
+        {
+          "token": "ताप्ले",
+          "count": 1
+        },
+        {
+          "token": "″",
+          "count": 1
+        },
+        {
+          "token": "ー",
+          "count": 1
+        },
+        {
+          "token": "す",
+          "count": 1
+        },
+        {
+          "token": "ま",
+          "count": 1
+        },
+        {
+          "token": "◆",
+          "count": 1
+        },
+        {
+          "token": "परमाण",
+          "count": 1
+        },
+        {
+          "token": "भाविक",
+          "count": 1
+        },
+        {
+          "token": "खतर",
+          "count": 1
+        },
+        {
+          "token": "महाभि",
+          "count": 1
+        },
+        {
+          "token": "टिकटक",
+          "count": 1
+        }
+      ]
+    },
+    "avg_chars_per_token": {
+      "avg_chars_per_token": 4.9368,
+      "median_chars_per_token": 5.0,
+      "std_chars_per_token": 2.3634,
+      "max_chars_in_token": 18,
+      "min_chars_in_token": 1
+    },
+    "tokenization_examples": [
+      {
+        "input": "नेपाल विभिन्न संस्कृति र परम्पराहरूको देश हो।",
+        "tokens": [
+          "नेपाल",
+          "विभिन्न",
+          "संस्कृति",
+          "र",
+          "परम्परा",
+          "हरूको",
+          "देश",
+          "हो",
+          "।"
+        ],
+        "token_count": 9,
+        "word_count": 7,
+        "fertility": 1.2857
+      },
+      {
+        "input": "नेपाली भाषा नेपालको राष्ट्रभाषाको रूपमा प्रयोग हुन्छ।",
+        "tokens": [
+          "नेपाली",
+          "भाषा",
+          "नेपालको",
+          "राष्ट्र",
+          "भाषाको",
+          "रूपमा",
+          "प्रयोग",
+          "हुन्छ",
+          "।"
+        ],
+        "token_count": 9,
+        "word_count": 7,
+        "fertility": 1.2857
+      },
+      {
+        "input": "सगरमाथा विश्वको सबैभन्दा अग्लो हिमाल हो।",
+        "tokens": [
+          "सगरमाथा",
+          "विश्वको",
+          "सबैभन्दा",
+          "अग्लो",
+          "हिमाल",
+          "हो",
+          "।"
+        ],
+        "token_count": 7,
+        "word_count": 6,
+        "fertility": 1.1667
+      },
+      {
+        "input": "प्रविधिले मानव जीवनलाई धेरै सजिलो बनाएको छ।",
+        "tokens": [
+          "प्रविधि",
+          "ले",
+          "मानव",
+          "जीवनलाई",
+          "धेरै",
+          "सजिलो",
+          "बनाएको",
+          "छ",
+          "।"
+        ],
+        "token_count": 9,
+        "word_count": 7,
+        "fertility": 1.2857
+      },
+      {
+        "input": "काठमाडौं नेपालको राजधानी शहर हो।",
+        "tokens": [
+          "काठमाडौं",
+          "नेपालको",
+          "राजधानी",
+          "शहर",
+          "हो",
+          "।"
+        ],
+        "token_count": 6,
+        "word_count": 5,
+        "fertility": 1.2
+      }
+    ],
+    "unk_token_stats": {
+      "docs_evaluated": 96882,
+      "total_words": 3085684,
+      "total_tokens": 4277115,
+      "unk_count": 11,
+      "unk_rate_pct": 0.0003,
+      "fertility": 1.3861,
+      "oov_word_examples": [
+        "मा􀃚यमबाट",
+        "राम्रोͧसत",
+        "लाͬग",
+        "Ǔनशुल्क",
+        "जरुरȣ",
+        "चाल्नेछेɉ",
+        "बिमानस्थल)でございますー",
+        "◄"
+      ]
+    }
+  }
+}

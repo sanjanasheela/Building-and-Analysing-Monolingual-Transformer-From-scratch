@@ -1,0 +1,42 @@
+[
+  {
+    "model_key": "BPE_5000",
+    "algorithm": "BPE",
+    "vocab_size": 5000,
+    "unk_rate_pct": 0.0001,
+    "fertility": 1.6582,
+    "avg_chars_per_token": 3.9386,
+    "vocab_coverage_pct": 88.11,
+    "selection_score": 0.4
+  },
+  {
+    "model_key": "BPE_7500",
+    "algorithm": "BPE",
+    "vocab_size": 7500,
+    "unk_rate_pct": 0.0001,
+    "fertility": 1.5153,
+    "avg_chars_per_token": 4.3951,
+    "vocab_coverage_pct": 91.93,
+    "selection_score": 0.191158
+  },
+  {
+    "model_key": "BPE_10000",
+    "algorithm": "BPE",
+    "vocab_size": 10000,
+    "unk_rate_pct": 0.0001,
+    "fertility": 1.4363,
+    "avg_chars_per_token": 4.7091,
+    "vocab_coverage_pct": 93.76,
+    "selection_score": 0.075703
+  },
+  {
+    "model_key": "BPE_12500",
+    "algorithm": "BPE",
+    "vocab_size": 12500,
+    "unk_rate_pct": 0.0001,
+    "fertility": 1.3845,
+    "avg_chars_per_token": 4.9368,
+    "vocab_coverage_pct": 94.85,
+    "selection_score": 0.0
+  }
+]

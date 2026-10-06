@@ -1,0 +1,103 @@
+{
+  "eval_file": "finetuning/data/test_fixed.jsonl",
+  "pretrained": {
+    "checkpoint": "checkpoints/checkpoints/step_0045000.pt",
+    "exact_match": 30.833333333333332,
+    "val_loss": 5.721813420405182,
+    "val_perplexity": 305.45834540796125,
+    "category_accuracy": {
+      "Numerical comparisons": {
+        "correct": 4,
+        "total": 40
+      },
+      "2-hop comparisons": {
+        "correct": 18,
+        "total": 40
+      },
+      "Direct comparisons": {
+        "correct": 22,
+        "total": 40
+      },
+      "4-hop comparisons": {
+        "correct": 14,
+        "total": 40
+      },
+      "Greater/smaller/equal cases": {
+        "correct": 1,
+        "total": 40
+      },
+      "3-hop comparisons": {
+        "correct": 15,
+        "total": 40
+      }
+    },
+    "hop_accuracy": {
+      "1": {
+        "correct": 27,
+        "total": 120
+      },
+      "2": {
+        "correct": 18,
+        "total": 40
+      },
+      "4": {
+        "correct": 14,
+        "total": 40
+      },
+      "3": {
+        "correct": 15,
+        "total": 40
+      }
+    }
+  },
+  "finetuned": {
+    "checkpoint": "finetuned_checkpoints/finetuned_train_samples_10000.pt",
+    "exact_match": 81.25,
+    "val_loss": 0.6217025288743133,
+    "val_perplexity": 1.862095616191119,
+    "category_accuracy": {
+      "Numerical comparisons": {
+        "correct": 32,
+        "total": 40
+      },
+      "2-hop comparisons": {
+        "correct": 26,
+        "total": 40
+      },
+      "Direct comparisons": {
+        "correct": 34,
+        "total": 40
+      },
+      "4-hop comparisons": {
+        "correct": 31,
+        "total": 40
+      },
+      "Greater/smaller/equal cases": {
+        "correct": 40,
+        "total": 40
+      },
+      "3-hop comparisons": {
+        "correct": 32,
+        "total": 40
+      }
+    },
+    "hop_accuracy": {
+      "1": {
+        "correct": 106,
+        "total": 120
+      },
+      "2": {
+        "correct": 26,
+        "total": 40
+      },
+      "4": {
+        "correct": 31,
+        "total": 40
+      },
+      "3": {
+        "correct": 32,
+        "total": 40
+      }
+    }
+  }
+}

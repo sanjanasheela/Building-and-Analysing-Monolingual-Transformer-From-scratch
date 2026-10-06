@@ -1,0 +1,15 @@
+{
+  "algorithm": "BPE",
+  "vocab_size_target": 12500,
+  "actual_vocab_size": 12500,
+  "special_tokens": [
+    "<pad>",
+    "<unk>",
+    "<bos>",
+    "<eos>"
+  ],
+  "unk_token": "<unk>",
+  "normalizer": "NFC",
+  "pre_tokenizer": "Whitespace",
+  "training_time_seconds": 171.56
+}
