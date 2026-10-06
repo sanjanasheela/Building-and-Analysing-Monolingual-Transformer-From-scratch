@@ -1,0 +1,779 @@
+\documentclass[8pt]{article}
+\usepackage{titling}
+\setlength{\droptitle}{-5em}
+
+\preauthor{\vspace{-1.5em}\begin{center}} 
+\postauthor{\end{center}}
+
+\usepackage{fontspec}
+\usepackage[a4paper, left=0.45in, right=0.45in, top=0.4in, bottom=0.45in, headsep=0pt, includehead=false]{geometry}
+\usepackage{xurl}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{microtype}
+
+% Tighten spacing around floats and equations to save space
+\setlength{\textfloatsep}{10pt plus 2pt minus 2pt}
+\setlength{\floatsep}{8pt plus 2pt minus 2pt}
+\setlength{\intextsep}{8pt plus 2pt minus 2pt}
+
+\emergencystretch=1em
+\newfontfamily\telugufont{Noto Sans Telugu}[Script=Telugu]
+\newfontfamily\nepalifont{Noto Sans Devanagari}[Script=Devanagari]
+
+\newcommand{\telugu}[1]{{\telugufont #1}}
+\newcommand{\nepali}[1]{{\nepalifont #1}}
+
+\title{\textbf{LMA INDIVIDUAL PROJECT} \\ \large Building and Analyzing Monolingual Transformer LMs in Two Indian Languages}
+\author{Sanjana Sheela 2023102027}
+\date{} 
+\begin{document}
+
+\maketitle
+\section{Introduction}
+\label{sec:introduction}
+
+This project focuses on training, and analyzing two completely independent decoder-only Transformer language models from scratch - covering corpus collection, tokenizer training, pretraining, finetuning on reasoning tasks and analysis.
+
+\section{Phase 1: Data Collection and Tokenizer Construction}
+\label{sec:phase1}
+
+\subsection{Language Selection and Dataset Statistics}
+\begin{itemize}
+    \item \textbf{Higher-Resource Language: Telugu.} Telugu was chosen because of the large public data available to meet the token requirement. It is the author's mother tongue which makes it easier to check the results.
+    \item \textbf{Lower-Resource Language: Nepali.} Among the allowed list, Nepali was selected because enough data could be sourced from a public news website. This ensured that enough corpus could be collected.
+\end{itemize}
+
+
+
+\subsection{Telugu Corpus Statistics (Model H)}
+Manual data collection was done for major news portals with XML sitemap bulk extractors. Digital books, and scanned literature from archives (such as the Internet Archive and TTD) were processed using OCR.
+
+\begin{table}[!htp]
+    \centering
+    \footnotesize % Reduces font size to save vertical space
+    \setlength{\tabcolsep}{3.5pt} % Tightens column spacing
+    \begin{tabular}{llrrrr}
+        \toprule
+        \textbf{Category} & \textbf{Source / Subset} & \textbf{Documents} & \textbf{Doc \%} & \textbf{Words} & \textbf{Word \%} \\
+        \midrule
+        \multicolumn{6}{l}{\textit{Public Data Sources}} \\
+        Public Data & IndicCorp Telugu Dataset & 9,317,655 & 68.03\% & 311,614,562 & 82.27\% \\
+        \midrule
+        \textbf{Subtotal} & \textit{All Public Datasets} & \textbf{9,317,655} & \textbf{68.03\%} & \textbf{311,614,562} & \textbf{82.27\%} \\
+        \midrule
+        \multicolumn{6}{l}{\textit{Manual Data Sources}} \\
+        Manual Data & Telugu Wikipedia Dumps & 2,751,200 & 20.09\% & 42,210,500 & 11.14\% \\
+        Manual Data & Eenadu \& Sakshi News & 785,120 & 5.73\% & 12,045,100 & 3.18\% \\
+        Manual Data & TV9 Telugu \& Andhra Jyothy & 498,350 & 3.64\% & 7,650,200 & 2.02\% \\
+        Manual Data & OCR Books \& Webscraped Portals & 343,803 & 2.51\% & 5,255,582 & 1.39\% \\
+        \midrule
+        \textbf{Subtotal} & \textit{All Curated Manual Sources} & \textbf{4,378,473} & \textbf{31.97\%} & \textbf{67,161,382} & \textbf{17.73\%} \\
+        \midrule
+        \textbf{Total} & \textbf{Consolidated \texttt{telugu\_corpus.txt}} & \textbf{13,696,128} & \textbf{100.00\%} & \textbf{378,775,944} & \textbf{100.00\%} \\
+        \bottomrule
+    \end{tabular}
+    \caption{Dataset breakdown and statistics for Telugu (Model H)}
+    \label{tab:telugu_stats}
+\end{table}
+
+\subsubsection{Nepali Corpus Statistics (Model L)}
+The public data included different publically available datasets .
+Manual data collection for Nepali utilized customized crawlers and extractors for prominent news archives.
+\begin{table}[!htp]
+    \centering
+    \footnotesize % Reduces font size to save vertical space
+    \setlength{\tabcolsep}{3.5pt} % Tightens column spacing
+    \begin{tabular}{llrrrr}
+        \toprule
+        \textbf{Category} & \textbf{Source / Subset} & \textbf{Documents} & \textbf{Doc \%} & \textbf{Words} & \textbf{Word \%} \\
+        \midrule
+        \multicolumn{6}{l}{\textit{Public Data Sources}} \\
+        Public Data & AI4Bharat Sangraha & 4,912,050 & 41.79\% & 165,820,400 & 40.51\% \\
+        Public Data & RayGX Nepali Corpus & 2,185,412 & 18.60\% & 74,510,120 & 18.20\% \\
+        Public Data & Sakonii Web Crawl & 1,440,470 & 12.26\% & 46,170,171 & 11.28\% \\
+        \midrule
+        \textbf{Subtotal} & \textit{All Public Datasets} & \textbf{8,537,932} & \textbf{72.65\%} & \textbf{286,500,691} & \textbf{69.99\%} \\
+        \midrule
+        \multicolumn{6}{l}{\textit{Manual Data Sources}} \\
+        Manual Data & OnlineKhabar Archive & 1,730,975 & 14.73\% & 76,825,992 & 18.77\% \\
+        Manual Data & Nepali Wikipedia \& Wikisource & 682,450 & 5.81\% & 21,410,500 & 5.23\% \\
+        Manual Data & Kantipur News & 245,180 & 2.09\% & 7,852,140 & 1.92\% \\
+        Manual Data & Ratopati News & 225,410 & 1.92\% & 6,540,810 & 1.60\% \\
+        Manual Data & Gorkhapatra \& Setopati & 148,920 & 1.27\% & 4,210,500 & 1.03\% \\
+        Manual Data & Gov PDFs, OCR Books \& Literature & 181,991 & 1.55\% & 5,994,371 & 1.46\% \\
+        \midrule
+        \textbf{Subtotal} & \textit{All Curated Manual Sources} & \textbf{3,214,926} & \textbf{27.35\%} & \textbf{122,834,313} & \textbf{30.01\%} \\
+        \midrule
+        \textbf{Total} & \textbf{Consolidated \texttt{nepali\_corpus.txt}} & \textbf{11,752,858} & \textbf{100.00\%} & \textbf{409,335,004} & \textbf{100.00\%} \\
+        \bottomrule
+    \end{tabular}
+    \caption{Dataset breakdown and statistics for Nepali (Model L)}
+    \label{tab:nepali_stats}
+\end{table}
+
+
+\subsection{Preprocessing and Cleaning Pipeline}
+\label{sec:preprocessing}
+
+The data had a lot of noise, web boilerplate and duplicates. The following process was followed to clean the data and get clean data for that particular langauge.
+\subsubsection{Modular Paragraph Filtering Stages}
+Each paragraph is processed sequentially through dedicated modular subroutines:
+\begin{itemize}
+    \item \textbf{Header / Footer \& Page Number Stripping:} Removes automated crawler artifacts, running page headers, footers, timestamp signatures, and scan-line artifacts.
+    \item \textbf{Length Filtering:} Drops lines less than 3 words and documents less than 20 words.
+    \item \textbf{Whitespace Normalization:} removes consecutive horizontal whitespaces and tabs, trims outer edges while retaining proper sentence boundaries.
+    \item \textbf{Language Filtering:} removes emojis and other languages.
+    \item \textbf{Unicode Canonical Normalization:} Applies Normalization(\texttt{NFC}) to standardize Devanagari and Telugu text.
+\end{itemize}
+
+\subsubsection{Exact Deduplication}
+To completely remove identical paragraphs, the cleaned text undergoes exact hashing:
+\begin{itemize}
+    \item \textbf{Hashing Mechanism:} The cleaned paragraph text is passed through a 64-bit \texttt{xxhash} function (with a SHA-256 fallback) to produce a unique hash string.
+    \item \textbf{SQLite Primary Key Check:} The hash is queried against an on-disk SQLite table. If the hash already exists the paragraph is dropped.
+\end{itemize}
+
+\subsubsection{Near-Deduplication Method (MinHash + LSH)}
+To detect paraphrased content, the pipeline applies MinHash and Locality-Sensitive Hashing (LSH):
+\begin{itemize}
+    \item \textbf{MinHash Signature:} The paragraph is broken into 3 word shinglesusing 64 permutation functions (\texttt{num\_perm = 64}) to generate a compact signature estimating Jaccard similarity.
+    \item \textbf{LSH Band Partitioning:} The 64-dimensional signature is partitioned into $b = 8$ bands, with each band containing $r = 8$ rows ($64 / 8$). 
+    \item \textbf{Collision Probability:} The probability of a band collision between two texts with Jaccard similarity $s$ is given by: This produces a sharp S-curve threshold at roughly $s \approx 0.75$.
+    \begin{equation}
+        P(\text{collision}) = 1 - (1 - s^r)^b = 1 - (1 - s^8)^8
+    \end{equation}
+    
+    \item \textbf{SQLite LSH Lookup:} Each band's bytes are hashed and checked against an SQLite table. If any single band matches an existing record it is dropped.
+\end{itemize}
+
+
+
+\subsection{Tokenizer Training and Vocabulary}
+\label{sec:tokenizer}
+Byte-Pair Encoding (BPE) was chosen because Telugu and Nepali utilize complex Brahmic scripts that have complex word formations. BPE ensures an extremely low unknown token rate by splitting unseen words into constituent characters. It naturally handles the agglutinative and suffix-heavy nature of both languages, where words are formed by adding multiple suffixes.
+
+\subsubsection{Vocabulary Size Sweep}
+    \begin{equation}
+        \text{Score} = 0.6 \times \text{norm}(\text{unk\_rate\_pct}) + 0.4 \times \text{norm}(\text{fertility})
+    \end{equation}
+    where scores are min-max normalized across candidates (lower score is superior).
+
+    \begin{table*}[!htp]
+        \centering
+        \footnotesize % Reduces font size to save vertical space
+        \setlength{\tabcolsep}{3.5pt} % Tightens column spacing
+        \begin{tabular*}{\textwidth}{llrrrrrrrrr}
+            \toprule
+            \textbf{Model} & 
+            \textbf{Fertility} & \textbf{UNK \%} & \textbf{Chars/Tok} &
+            \textbf{Selection Score} & \textbf{Total Tokens} &
+            \textbf{Manual Tokens} & \textbf{Public Tokens} & \textbf{Vocab Coverage} \\
+            \midrule
+            BPE\_5000   & 2.0430 & 0.0000\% & 4.4083 & 0.4000 &
+            \textbf{807,501,028} & \textbf{168,480,394} & \textbf{639,020,634} & \textbf{86.45\%} \\
+    
+            \textbf{BPE\_7500}  & 
+            \textbf{1.8713} & \textbf{0.0000\%} & \textbf{4.8400} & \textbf{0.2013} &
+            \textbf{740,773,966} & \textbf{155,885,468} & \textbf{584,888,498} & \textbf{90.12\%} \\
+    
+            BPE\_10000 & 1.7677 & 0.0000\% & 5.1275 & 0.0815 &
+            \textbf{700,768,250} & \textbf{148,305,773} & \textbf{552,462,477} & \textbf{92.80\%} \\
+    
+            BPE\_12500 & 1.6973 & 0.0000\% & 5.3706 & 0.0000 &
+            \textbf{673,338,213} & \textbf{143,023,396} & \textbf{530,314,817} & \textbf{94.15\%} \\
+    
+            \bottomrule
+        \end{tabular*}
+        \caption{Tokenizer hyperparameter sweep summary for Telugu (Model H) on the validation split}
+        \label{tab:telugu_sweep}
+    \end{table*}
+
+    \begin{table*}[!htp]
+        \centering
+        \footnotesize % Reduces font size to save vertical space
+        \setlength{\tabcolsep}{3.5pt} % Tightens column spacing
+        \begin{tabular*}{\textwidth}{llrrrrrrrrr}
+            \toprule
+            \textbf{Model} & 
+            \textbf{Fertility} & \textbf{UNK \%} & \textbf{Chars/Tok} &
+            \textbf{Selection Score} & \textbf{Total Tokens} &
+            \textbf{Manual Tokens} & \textbf{Public Tokens} & \textbf{Vocab Coverage} \\
+            \midrule
+    
+            BPE\_5000 & 1.6582 & 0.0001\% & 3.9386 & 0.4000 &
+            \textbf{695,863,672} & \textbf{154,947,017} & \textbf{540,916,655} & \textbf{88.11\%} \\
+    
+            \textbf{BPE\_7500} & 
+            \textbf{1.5153} & \textbf{0.0001\%} & \textbf{4.3951} & \textbf{0.1912} &
+            \textbf{635,810,473} & \textbf{142,074,846} & \textbf{493,735,627} & \textbf{91.93\%} \\
+    
+            BPE\_10000 & 1.4363 & 0.0001\% & 4.7091 & 0.0757 &
+            \textbf{602,495,582} & \textbf{134,880,257} & \textbf{467,615,325} & \textbf{93.76\%} \\
+    
+            BPE\_12500 &  1.3845 & 0.0001\% & 4.9368 & 0.0000 &
+            \textbf{580,682,658} & \textbf{130,104,356} & \textbf{450,578,302} & \textbf{94.85\%} \\
+    
+            \bottomrule
+        \end{tabular*}
+        \caption{Tokenizer hyperparameter sweep summary for Nepali (Model L) on the validation split}
+        \label{tab:nepali_sweep}
+    \end{table*}
+
+\subsubsection{Architectural Trade-Off and Selection of $V = 7,500$}
+While the larger $12,500$-token vocabulary produced the lowest mathematical fertility ($1.6973$ for Telugu, $1.3845$ for Nepali), $\text{BPE\_7500}$ was selected as the final tokenizer by carefully balancing the model's $\sim$25M parameter constraint. In a decoder-only Transformer with an embedding dimension $d_{\text{model}} = 512$, the token embedding matrix contains exactly $V \times d_{\text{model}}$ parameters. At $V = 7,500$, the embedding table accounts for $7,500 \times 512 = 3,840,000$ parameters ($\sim 15.4\%$ of the total $24.91\text{M}$ parameter budget), leaving approximately $84.6\%$ dedicated to the Transformer's hidden attention and feedforward layers. Conversely, increasing $V$ to $12,500$ would allocate $6.4\text{M}$ parameters solely for static embedding lookups. Under a fixed 25M ceiling, this expansion would drastically starve the network's expressive depth, forcing undesirable reductions in layers ($L$) or the feedforward inner dimension ($d_{\text{ff}}$).
+
+
+\textbf{Top Frequent Tokens:}
+\begin{itemize}
+    \item \textbf{Model H (Telugu):} \texttt{.} (258.9k), \texttt{,} (111.2k), \telugu{ఈ} ``this'' (42.7k), \telugu{-లో} ``in'' (37.0k), \texttt{..} (26.2k).
+    \item \textbf{Model L (Nepali):} \texttt{public} (89.7k), \texttt{,} (80.7k), \nepali{र} ``and'' (77.5k), \nepali{-को} ``of'' (54.0k), \nepali{छ} ``is'' (37.9k).
+\end{itemize}
+
+
+\subsubsection{Qualitative Tokenization Examples}
+
+\paragraph{Model H — Telugu Tokenization Examples (BPE\_7500):}
+{\small
+\begin{enumerate}
+   
+    \item \textbf{Input:} \telugu{తెలుగు భాష ఆంధ్రప్రదేశ్ మరియు తెలంగాణ రాష్ట్రాలలో మాట్లాడబడుతుంది.} \\
+    \textbf{Tokens:} {\telugufont ['తెలుగు', 'భాష', 'ఆంధ్ర', 'ప్రదేశ్', 'మరియు', 'తెలంగాణ', 'రాష్ట్ర', 'ాలలో', 'మాట్లాడ', 'బడుతుంది', '.']} \\
+    \textbf{Diagnostics:} 7 words / 11 tokens (Fertility: 1.57).  
+
+\end{enumerate}
+}
+
+\paragraph{Model L — Nepali Tokenization Examples (BPE\_7500):}
+{\small
+\begin{enumerate}
+  
+    \item \textbf{Input:} \nepali{सगरमाथा विश्वको सबैभन्दा अग्लो हिमाल हो।} \\
+    \textbf{Tokens:} {\nepalifont ['सगरमाथा', 'विश्वको', 'सबैभन्दा', 'अग्', 'लो', 'हिमाल', 'हो', '।']} \\
+    \textbf{Diagnostics:} 6 words / 8 tokens (Fertility: 1.33).
+
+   
+\end{enumerate}
+}
+
+
+\section{Phase 2: Model Implementation, Pretraining, and Evaluation}
+\label{sec:phase2}
+
+\subsection{Model Architecture and Component Specifications}
+\label{subsec:architecture}
+
+\begin{itemize}
+    \item \textbf{Token Embeddings:} Indices are mapped via a learnable matrix ($V = 7,500$, $d_{\text{model}} = 512$), followed by $0.1$ dropout:
+    \begin{equation}
+        X^{(0)} = \text{Dropout}\left(\text{Embedding}(X_{\text{tok}}; W_{\text{emb}}), p = 0.1\right)
+    \end{equation}
+    \item \textbf{Rotary Position Embeddings (RoPE):} To avoid the parameter overhead and length limits of absolute embeddings, RoPE applies orthogonal rotation matrices based on position index $m$ and frequency base $\Theta = 10,000.0$. This encodes relative distance $(n - m)$ directly into the attention inner product:
+    \begin{equation}
+        \langle R_m q_m, R_n k_n \rangle = q_m^\top R_{n - m} k_n
+    \end{equation}
+    \item \textbf{Pre-Norm Layer Normalization:} LayerNorm is applied before each sublayer rather than after, allowing uninhibited gradient highways straight back to initial embeddings and ensuring stable optimization:
+    \begin{align}
+        X^{(l)}_{\text{mid}} &= X^{(l-1)} + \text{Dropout}\left(\text{MHSA}\left(\text{LayerNorm}_1(X^{(l-1)})\right), p = 0.1\right) \\
+        X^{(l)} &= X^{(l)}_{\text{mid}} + \text{Dropout}\left(\text{FFN}\left(\text{LayerNorm}_2(X^{(l)}_{\text{mid}})\right), p = 0.1\right)
+    \end{align}
+    \item \textbf{SwiGLU FFN \& Weight Tying:} We use SwiGLU with an inner dimension of $d_{\text{ffn}} = 1,600$ ($3.125 \times d_{\text{model}}$) to fit the $\sim$25M parameter budget. Furthermore, output head weights are tied directly to the input embeddings ($W_{\text{head}} = W_{\text{emb}}^\top$), saving $3.84\text{M}$ redundant parameters.
+\end{itemize}
+
+\subsection{Hyperparameter Sweep and Empirical Configuration Selection}
+\label{subsec:sweep}
+
+To identify the best architectural configuration with constraints, we conducted a  hyperparameter sweep. All candidate architectures were evaluated on identical validation data.
+
+\subsubsection{Empirical Sweep Results and Analysis}
+The complete log of all 48 probe runs was parsed from \url{language_H/configs/sweep_results/res.txt}. Table~\ref{tab:sweep_results} summarizes the aggregate performance metrics across the architectural families, while Figures~\ref{fig:sweep_arch_comp}, \ref{fig:sweep_depth_width}, \ref{fig:sweep_marginals}, and \ref{fig:sweep_convergence} present diagnostic visual comparisons.
+
+\begin{table}[!htp]
+    \centering
+    \footnotesize % Reduces font size to save vertical space
+    \setlength{\tabcolsep}{3.5pt} % Tightens column spacing
+    \begin{tabular}{llccccc}
+        \toprule
+        \textbf{Architecture Family} & \textbf{Activation} & \textbf{Mean Val Loss} & \textbf{Best Val Loss} & \textbf{Best PPL} & \textbf{Best BPB} & \textbf{Params} \\
+        \midrule
+        Deep (12 Layers, $d=384$) & GELU & 6.8837 & 6.2842 & 536.04 & 0.7196 & 24.3M \\
+        Deep (12 Layers, $d=384$) & SwiGLU & 6.8401 & 6.1345 & 461.51 & 0.7024 & 24.3M \\
+        \midrule
+        \textbf{Base (6 Layers, $d=512$)} & GELU & 6.7118 & 6.0724 & 433.72 & 0.6953 & 25.3M \\
+        \textbf{Base (6 Layers, $d=512$)} & \textbf{SwiGLU} & \textbf{6.5942} & \textbf{5.9128} & \textbf{369.74} & \textbf{0.6771} & \textbf{25.1M} \\
+        \midrule
+        Wide (4 Layers, $d=640$) & GELU & 6.5749 & 5.9520 & 384.52 & 0.6815 & 25.1M \\
+        Wide (4 Layers, $d=640$) & SwiGLU & 6.5014 & 5.7941 & 328.36 & 0.6635 & 25.1M \\
+        \bottomrule
+    \end{tabular}
+    \caption{Aggregate empirical performance comparison across the 48 probe sweep runs}
+    \label{tab:sweep_results}
+\end{table}
+
+
+
+
+\subsubsection{Comprehensive Justification for Selecting the Final Configuration (\texttt{51.yaml})}
+We selected the \textbf{Base SwiGLU} configuration (6 layers, $d_{\text{model}} = 512$, $h = 8$) in \url{51.yaml} based on four key factors:
+\begin{enumerate}
+    \item \textbf{Optimal Depth for Reasoning:} A 6-layer depth provides the necessary compositional hierarchy for multi-step reasoning, avoiding the limitations of shallow 4-layer networks.
+    \item \textbf{Avoiding Bottlenecks:} A 512 hidden dimension prevents the representation bottlenecks experienced by narrower, deep models ($d = 384$).
+    \item \textbf{Parameter Reinvestment:} Reducing $V$ to $7,500$ freed $\approx 2.56\text{M}$ parameters, which were reinvested into a wider SwiGLU inner dimension ($d_{\text{ffn}} = 1,600$), reaching a total of $\approx 24.91\text{M}$ parameters.
+    \item \textbf{Hardware Efficiency:} The per-head dimension $d_{\text{head}} = 64$ is a direct multiple of 32, perfectly aligning with GPU Tensor Core tile boundaries.
+\end{enumerate}
+
+\subsubsection{Pretraining Optimization Setup}
+Pretraining used the AdamW optimizer ($\beta_1 = 0.9, \beta_2 = 0.95, \lambda = 0.1$) with mixed-precision arithmetic and gradient clipping ($\|\mathbf{g}\|_2 \le 1.0$). To balance GPU VRAM limits with low gradient variance, we used a micro-batch size of $16$ and $4$ accumulation steps, giving an effective batch size of $64$ sequences and a throughput of $32,768$ tokens per step:
+\begin{equation}
+    \text{Tokens per Step} = B_{\text{eff}} \times T = 64 \times 512 = \mathbf{32,768}
+\end{equation}
+
+The learning rate followed a cosine annealing schedule with a 3,000-step linear warmup, peaking at $1.0 \times 10^{-3}$ and decaying to $1.0 \times 10^{-4}$. Checkpoints and evaluations were saved every 1,000 steps, processing a total of $\sim 1.47\text{B}$ tokens across $45,000$ steps.
+
+\subsubsection{Training Dynamics and Convergence Trajectories}
+Figure~\ref{fig:loss_comparison_both} displays the pretraining loss curves for Model H (Telugu) and Model L (Nepali), and Figure~\ref{fig:ppl_comparison_both} shows their corresponding perplexity curves across training, validation, and held-out test splits.
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.4\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{plots/model_H_loss_comparison.png}
+        \par\vspace{3pt}\small\textbf{(a) Model H (Telugu) Loss Curve}
+    \end{minipage}\hfill
+    \begin{minipage}{0.4\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{plots/model_L_loss_comparison.png}
+        \par\vspace{3pt}\small\textbf{(b) Model L (Nepali) Loss Curve}
+    \end{minipage}
+    \caption{Pretraining cross-entropy loss trajectories for Model H (Telugu) and Model L (Nepali).}
+    \label{fig:loss_comparison_both}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.4\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{plots/model_H_ppl_comparison.png}
+        \par\vspace{3pt}\small\textbf{(a) Model H (Telugu) Perplexity}
+    \end{minipage}\hfill
+    \begin{minipage}{0.4\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{plots/model_L_ppl_comparison.png}
+        \par\vspace{3pt}\small\textbf{(b) Model L (Nepali) Perplexity}
+    \end{minipage}
+    \caption{Perplexity trajectories during pretraining on training, validation, and test splits for Model H and Model L.}
+    \label{fig:ppl_comparison_both}
+\end{figure}
+
+
+\subsubsection{Intrinsic Language Modeling Evaluation}
+Table~\ref{tab:lm_eval} presents the intrinsic language modeling evaluation test sets evaluated at 45,000-step checkpoint.
+
+\begin{table}[!htp]
+    \centering
+    \footnotesize % Reduces font size to save vertical space
+    \setlength{\tabcolsep}{3.5pt} % Tightens column spacing
+    \begin{tabular}{lccccc}
+        \toprule
+        \textbf{Model / Language} & \textbf{Val Loss} & \textbf{Test Loss} & \textbf{PPL} & \textbf{BPB} & \textbf{Tokens Seen} \\
+        \midrule
+        \textbf{Model H (Telugu)} & 3.7150 & \textbf{3.7361} & \textbf{41.9356} & \textbf{0.0152} & $\sim 1.47\text{B}$ \\
+        \textbf{Model L (Nepali)} & 3.9298 & \textbf{3.9761} & \textbf{53.3080} & \textbf{0.0162} & $\sim 1.47\text{B}$ \\
+        \bottomrule
+    \end{tabular}
+    \caption{Intrinsic language modeling evaluation metrics on held-out test corpora at the matched 45,000-step checkpoint. .}
+    \label{tab:lm_eval}
+\end{table}
+
+\subsubsection{Understanding the Performance Gap Between Model H and Model L}
+Although Model H edges out Model L in raw perplexity (41.94 vs. 53.31), raw numbers don't tell the whole story. This gap stems from Model H's richer data breadth across diverse web archives and literature compared to Model L's heavily journalistic corpus, alongside distinct grammatical structures like Telugu's dense suffix-chaining versus Nepali's synthetic inflections. However, raw perplexity largely favors tokenizers with higher word fragmentation; when measured via byte-level Bits-Per-Byte (BPB), Model H ($0.0152$) and Model L ($0.0162$) differ by a microscopic $0.0010$, proving that both models compress their respective languages with nearly identical efficiency once normalized.
+
+\subsubsection{Quantitative Generation Metrics}
+\begin{table}[H]
+    \centering
+    \small
+    \setlength{\tabcolsep}{4.8pt}
+    \begin{tabular}{ccccccccc}
+        \toprule
+        \textbf{Temperature} & \textbf{BLEU-4} & \textbf{chrF} & \textbf{chrF++} & \textbf{ROUGE-L} & \textbf{Rep-rate-3} $\downarrow$ & \textbf{Distinct-1} $\uparrow$ & \textbf{Distinct-2} $\uparrow$ \\
+        \midrule
+        0.0 (Greedy) & 0.7501 & 17.66 & 15.24 & 7.20 & 0.5509 & 0.2000 & 0.4292 \\
+        0.2 & 0.7591 & 18.43 & 15.84 & 7.34 & 0.4218 & 0.2145 & 0.4955 \\
+        \textbf{0.5} & \textbf{0.6284} & \textbf{19.12} & \textbf{16.38} & \textbf{7.31} & \textbf{0.1908} & \textbf{0.2646} & \textbf{0.6603} \\
+        0.8 & 0.7253 & 18.82 & 15.98 & 6.78 & 0.0438 & 0.3259 & 0.8518 \\
+        1.0 & 0.6494 & 18.83 & 15.84 & 6.32 & 0.0066 & 0.3609 & 0.9227 \\
+        1.2 & 0.6441 & 18.52 & 15.49 & 6.17 & 0.0023 & 0.3873 & 0.9560 \\
+        1.5 & 0.6183 & 18.33 & 15.07 & 5.80 & 0.0011 & 0.4198 & 0.9812 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Model H (Telugu) generation quality, reference overlap, and diversity diagnostics across sampling temperatures. Temperature $T = 0.5$ represents the empirical optimal operating point, maximizing chrF/chrF++ while suppressing degenerative repetition.}
+    \label{tab:generation_model_H}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \small
+    \setlength{\tabcolsep}{4.8pt}
+    \begin{tabular}{ccccccccc}
+        \toprule
+        \textbf{Temperature} & \textbf{BLEU-4} & \textbf{chrF} & \textbf{chrF++} & \textbf{ROUGE-L} & \textbf{Rep-rate-3} $\downarrow$ & \textbf{Distinct-1} $\uparrow$ & \textbf{Distinct-2} $\uparrow$ \\
+        \midrule
+        0.0 (Greedy) & 1.1921 & 17.00 & 14.35 & 8.82 & 0.5270 & 0.1712 & 0.4430 \\
+        0.2 & 1.1983 & 17.13 & 14.48 & 8.84 & 0.4819 & 0.1789 & 0.4722 \\
+        \textbf{0.5} & \textbf{1.1735} & \textbf{18.04} & \textbf{15.22} & \textbf{9.23} & \textbf{0.2395} & \textbf{0.2215} & \textbf{0.6473} \\
+        0.8 & 0.9676 & 17.84 & 14.88 & 8.41 & 0.0442 & 0.3024 & 0.8538 \\
+        1.0 & 0.9748 & 17.62 & 14.61 & 7.77 & 0.0206 & 0.3321 & 0.9134 \\
+        1.2 & 0.8752 & 17.71 & 14.58 & 7.14 & 0.0049 & 0.3661 & 0.9569 \\
+        1.5 & 0.5865 & 17.22 & 14.10 & 6.62 & 0.0009 & 0.4100 & 0.9798 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Model L (Nepali) generation quality and diversity metrics across sampling temperatures. Paralleling Model H, $T = 0.5$ balances lexical overlap against repetitive degradation.}
+    \label{tab:generation_model_L}
+\end{table}
+
+
+\subsubsection{Why Standard Evaluation Metrics Struggle with Open-Ended Text}
+Standard metrics like BLEU-4, chrF, and ROUGE-L struggle with open-ended generation because they rely on single reference sentences that ignore thousands of equally valid creative continuations, penalize rich Indic morphological variations and synonyms, and unfairly punish flexible SOV word order reorderings.
+
+\subsubsection{Finding the Sweet Spot: Temperature vs. Diversity}
+Sampling temperature involves a delicate trade-off: low temperatures ($T \le 0.2$) trigger repetitive loops with trigram repetition over $50\%$; the Goldilocks zone ($T = 0.5$) maximizes metric scores while dropping repetition to $19.08\%$ for Telugu and $23.95\%$ for Nepali; and high temperatures ($T \ge 1.0$) eliminate repetition but cause the model to wander off into wild hallucinations.
+
+\subsubsection{Qualitative Generation Examples}
+
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{p{0.15\linewidth}p{0.78\linewidth}}
+        \toprule
+        \textbf{Category} & \textbf{Text Content and Linguistic Analysis} \\
+        \midrule
+        \textbf{Model H Prefix} & \telugu{నూతనంగా నిర్మించిన ఈ ఆలయంలో...} (\textit{In this newly constructed temple...}) \\
+        \textbf{Model H Target} & \telugu{విగ్రహప్రతిష్ఠా మహోత్సవాలు, తేదీ బుధవారంనాడు, అంగరంగవైభవంగా నిర్వహించారు...} \\
+        \textbf{Model H Generated} & \telugu{వైభవంగా శ్రీ సీతారామ రాముడి విగ్రహ ప్రతిష్ఠ, ప్రతిష్ఠ, అభిషేకాలు, కల్యాణోత్సవాలను పురస్కరించుకుని మంగళవారం నాడు శ్రీ సీతారామ...} \\
+        \textit{Analysis} & The model recognizes the temple domain and successfully generates culturally coherent ritual vocabulary (\telugu{వైభవంగా, విగ్రహ ప్రతిష్ఠ, అభిషేకాలు, కల్యాణోత్సవాలు}), maintaining appropriate syntactic case marking with minimal localized repetition. \\
+        \midrule
+        \textbf{Model L Prefix} & \nepali{टिभी वा मनिटर खरिद आज भोलि धेरै सुनिने कुरा हो...} (\textit{Buying a TV or monitor is very commonly heard nowadays...}) \\
+        \textbf{Model L Target} & \nepali{4 टिभी र मनिटरमा 4 को ट्याग यसको स्क्रिनको रेजोलुसनसंग गासिएको हुन्छ...} \\
+        \textbf{Model L Generated} & \nepali{टिभी वा मनिटरको लागि पनि उपयोगी छ । यो एक उत्कृष्ट विकल्प हो । यो एक सानो, प्रकाशको लागि उपयुक्त छ ।} \\
+        \textit{Analysis} & Model L produces grammatically well-formed Nepali sentences with correct postpositional attachments (\nepali{मनिटरको लागि}), conveying a coherent product recommendation. \\
+        \bottomrule
+    \end{tabular}
+    \caption{Qualitative generation examples from Model H (Telugu) and Model L (Nepali) at sampling temperature $T = 0.5$ showing prompt prefix, ground truth continuation, and model output.}
+    \label{tab:generation_samples}
+\end{table}
+
+
+
+\subsection{Attention Analysis}
+\label{subsec:attention}
+
+To investigate the internal mechanistic representations learned by the 6-layer, 8-head Transformer architecture, we extracted attention weight matrices $A^{(l, h)} \in \mathbb{R}^{T \times T}$ across all $L = 6$ layers and $h \in \{0, \dots, 7\}$ heads on held-out test sequences.
+
+\subsubsection{Diagnostic Attention Metrics}
+We use two key diagnostics to analyze attention behavior:
+\begin{enumerate}
+    \item \textbf{Mean Attention Distance ($\bar{D}$):} Tracks the average token span—small distances capture local syntax, while large distances indicate long-range semantic routing across clauses.
+    \item \textbf{Attention Entropy ($\bar{H}$):} Measures attention concentration—high entropy reflects broad, diffuse focus, whereas low entropy points to sharply targeted routing or attention sinks.
+\end{enumerate}
+
+\subsubsection{Layer-Wise Attention Trajectories}
+
+\begin{table}[H]
+    \centering
+    \small
+    \setlength{\tabcolsep}{4.5pt}
+    \begin{tabular}{lcccc}
+        \toprule
+        & \multicolumn{2}{c}{\textbf{Model H (Telugu)}} & \multicolumn{2}{c}{\textbf{Model L (Nepali)}} \\
+        \cmidrule(lr){2-3} \cmidrule(lr){4-5}
+        \textbf{Layer} & \textbf{Entropy [Min, Max]} & \textbf{Distance [Min, Max]} & \textbf{Entropy [Min, Max]} & \textbf{Distance [Min, Max]} \\
+        \midrule
+        Layer 0 & 3.228 [3.14, 3.29] & 5.650 [5.39, 5.86] & 3.147 [2.95, 3.25] & 5.272 [4.17, 6.02] \\
+        Layer 1 & 1.703 [0.64, 2.84] & 3.157 [1.39, 7.41] & 1.868 [0.52, 2.81] & 3.136 [1.22, 5.45] \\
+        Layer 2 & 1.805 [0.99, 2.89] & 4.103 [1.72, 9.08] & 1.829 [0.68, 2.70] & 3.836 [1.46, 7.82] \\
+        Layer 3 & 1.737 [0.43, 2.62] & 5.891 [3.15, 10.54] & 2.123 [1.29, 2.54] & 7.379 [3.63, 10.45] \\
+        Layer 4 & 1.548 [0.70, 2.02] & 5.142 [1.87, 7.80] & 1.894 [0.84, 2.49] & 5.854 [1.53, 9.09] \\
+        Layer 5 & \textbf{1.255} [0.53, 2.25] & \textbf{7.731} [3.70, 10.72] & \textbf{1.818} [1.47, 2.13] & \textbf{8.269} [6.29, 9.57] \\
+        \bottomrule
+    \end{tabular}
+    \caption{Layer-wise attention entropy and mean attention distance across all heads for Model H and Model L. Both models display a clear structural division of labor: uniform diffuse smoothing in Layer 0, followed by sharp functional specialization in intermediate and deeper layers.}
+    \label{tab:attention_stats}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{plots/model_H_attn_layer_averages.png}
+        \par\vspace{3pt}\small\textbf{(a) Model H Layer Averages}
+    \end{minipage}\hfill
+    \begin{minipage}{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{plots/model_L_attn_layer_averages.png}
+        \par\vspace{3pt}\small\textbf{(b) Model L Layer Averages}
+    \end{minipage}
+    \caption{Layer-wise progression of mean attention entropy and mean attention distance for Model H (Telugu) and Model L (Nepali). As network depth increases, attention distance expands monotonically while entropy drops, showing increasing functional selectivity.}
+    \label{fig:attn_layer_averages}
+\end{figure}
+
+\subsubsection{Specialized Functional Attention Heads}
+The empirical attention metrics reveal distinct head specializations:
+\begin{enumerate}
+    \item \textbf{Local Syntactic and Morphological Heads:}
+    \begin{itemize}
+        \item \textit{Model H:} Layer 1 / Head 6 ($\bar{D} = 1.39, \bar{H} = 0.78$) and Layer 1 / Head 2 ($\bar{D} = 1.48, \bar{H} = 0.64$).
+        \item \textit{Model L:} Layer 1 / Head 0 ($\bar{D} = 1.22, \bar{H} = 0.52$) and Layer 2 / Head 7 ($\bar{D} = 1.46, \bar{H} = 0.68$).
+    \end{itemize}
+    These heads attend almost exclusively to the immediately preceding 1–2 tokens, tracking case markers, postpositions, and verb auxiliaries.
+    \item \textbf{Long-Range and Attention-Sink Heads:}
+    \begin{itemize}
+        \item \textit{Model H:} Layer 5 / Head 6 ($\bar{D} = 10.72, \bar{H} = 0.53$) and Layer 3 / Head 4 ($\bar{D} = 10.54, \bar{H} = 0.43$).
+        \item \textit{Model L:} Layer 3 / Head 2 ($\bar{D} = 10.45, \bar{H} = 1.29$) and Layer 5 / Head 1 ($\bar{D} = 9.57, \bar{H} = 1.67$).
+    \end{itemize}
+    These heads maintain large spans ($>10$ tokens) to track distant subject-verb agreements and establish attention sinks on boundary tokens.
+\end{enumerate}
+
+
+\subsubsection{Heatmap Comparison: Early Local vs. Late Sink Heads}
+Figure~\ref{fig:attn_heatmaps_comparison} contrasts the attention weight matrices of early-layer versus late-layer heads for both models.
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.24\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{plots/model_H_attn_L0_H0.png}
+        \par\vspace{3pt}\scriptsize\textbf{(a) Model H: L0 H0}
+    \end{minipage}\hfill
+    \begin{minipage}{0.24\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{plots/model_H_attn_L5_H6.png}
+        \par\vspace{3pt}\scriptsize\textbf{(b) Model H: L5 H6}
+    \end{minipage}\hfill
+    \begin{minipage}{0.24\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{plots/model_L_attn_L0_H0.png}
+        \par\vspace{3pt}\scriptsize\textbf{(c) Model L: L0 H0}
+    \end{minipage}\hfill
+    \begin{minipage}{0.24\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{plots/model_L_attn_L5_H6.png}
+        \par\vspace{3pt}\scriptsize\textbf{(d) Model L: L5 H6}
+    \end{minipage}
+    \caption{Empirical attention heatmaps demonstrating the structural evolution across layers.}
+    \label{fig:attn_heatmaps_comparison}
+\end{figure}
+
+
+\subsubsection{Cross-Lingual Attention Dynamics}
+Comparing both models reveals two key patterns:
+\begin{enumerate}
+    \item \textbf{Shared Early Layer Role:} Layer 0 acts as a local smoothing filter ($\bar{H} \approx 3.15 - 3.23$, $\bar{D} \approx 5.3 - 5.6$) in both models, avoiding complex long-range routing at the start.
+    \item \textbf{Final Layer Divergence:} Model H develops much sharper, lower-entropy heads in its final layer ($\bar{H} = 1.255$) ,whereas Model L spreads its attention more broadly across preceding token clusters.
+\end{enumerate}
+
+
+\section{Phase 3: Reasoning Finetuning and Cross-Lingual Analysis}
+\label{sec:phase3}
+
+Just because a language model can talk fluently after pretraining doesn't mean it can actually think. Out of the box, smaller causal models tend to trip up hard on things like logical deduction, sorting order, and multi-step reasoning.In Phase 3, we put our $\sim$25M parameter models to the test to see if they can pick up structured reasoning. 
+\subsection{Synthetic Reasoning Corpus Construction and Leakage Prevention}
+\label{subsec:reasoning_dataset}
+
+Instead of translating generic English tests—which usually sound awkward and carry over annotator noise—we built our own custom reasoning datasets from scratch, programmatically tailored specifically for Telugu and Nepali. Every single prompt was written directly in the native script, using natural grammar, authentic case markers, and culturally familiar names.
+\subsubsection{Task Formulation and Reasoning Categories}
+Our reasoning benchmark evaluates relational ordering, numerical comparison, and transitive deduction across six template categories:
+\begin{enumerate}
+    \item \textbf{Direct Comparisons (1-hop):} Pairwise attribute comparison ($A >_R B$) between two entities over continuous/ordinal traits $R$ (e.g., age, height).
+    \item \textbf{Numerical Magnitude (1-hop):} Evaluating relative size between two scalar numbers ($\max(m, n)$ or $\min(m, n)$).
+    \item \textbf{Equality Determination (1-hop):} Deciding if two quantities are identical or distinct ($x = y$ vs. $x \neq y$).
+    \item \textbf{2-Hop to 4-Hop Transitive Comparisons:} Multi-hop chains requiring sequential deduction across three ($A > B > C$), four ($A > B > C > D$), or five entities ($A > B > C > D > E$).
+\end{enumerate}
+
+\subsubsection{Prompt Structuring and Native Script Phrasing}
+Each instance couples an explicit premises context with a targeted interrogation prompt and a step-by-step reasoning trace preceding the final gold answer:
+\begin{itemize}
+    \item \textbf{Telugu (Model H) Canonical Format:}
+    \begin{center}
+    \telugu{ప్రశ్న:} \texttt{\{Premise\} \{Question\}} \\
+    \telugu{జవాబు:} \texttt{\{Step-by-step deduction\}} \telugu{కాబట్టి సమాధానం} \texttt{\{Target\}} .
+    \end{center}
+    \item \textbf{Nepali (Model L) Canonical Format:}
+    \begin{center}
+    \nepali{प्रश्न:} \texttt{\{Premise\} \{Question\}} \\
+    \nepali{उत्तर:} \texttt{\{Step-by-step deduction\}} \nepali{त्यसैले उत्तर} \texttt{\{Target\}} .
+    \end{center}
+\end{itemize}
+
+To prevent surface memorization and force genuine reasoning, we used a strict anti-leakage protocol that kept entity names and attributes entirely disjoint between training and evaluation.
+
+\subsubsection{Masked Target-Token Objective}
+
+Prompt tokens were masked with label $-100$, ensuring gradients penalize only errors rather than wasting capacity on prompt reconstruction.
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{ll}
+        \toprule
+        \textbf{Hyperparameter} & \textbf{Finetuning Specification (\texttt{finetune.yaml})} \\
+        \midrule
+        Base Model Checkpoint & Matched Pretrained Checkpoint (\texttt{step\_0045000.pt}) \\
+        Batch Size / Eval Batch Size & $8$ sequences per batch \\
+        Epochs & $3$ full epochs \\
+        Optimizer & AdamW ($\beta_1 = 0.9, \beta_2 = 0.95, \epsilon = 1.0 \times 10^{-8}$) \\
+        Peak Learning Rate ($\eta_{\text{max}}$) & $1.0 \times 10^{-4}$ ($0.0001$) \\
+        Minimum Learning Rate ($\eta_{\text{min}}$) & $1.0 \times 10^{-5}$ ($0.00001$) \\
+        Learning Rate Schedule & Cosine Annealing with 30-step linear warmup \\
+        Weight Decay ($\lambda$) & $0.01$ (decoupled) \\
+        Gradient Clipping & $\|\mathbf{g}\|_2 \le 1.0$ \\
+        Loss Masking & Target tokens only (\texttt{answer\_tokens\_only}) \\
+        Max Generation Length & $64$ new tokens (Greedy argmax decoding) \\
+        \bottomrule
+    \end{tabular}
+    \caption{Reasoning finetuning hyperparameters specified in \texttt{finetune.yaml} for Model H and Model L.}
+    \label{tab:finetune_hyperparams}
+\end{table}
+
+\subsubsection{Data Scaling Regimes (100 to 10,000 Samples)}
+To figure out how much data is actually needed for inductive reasoning, we ran a data scaling sweep where we trained each model on 14 different log-spaced subset sizes.
+\begin{equation}
+    N_{\text{train}} \in \{100, 250, 500, 1000, 1500, 2000, 2500, 3000, 4000, 5000, 6000, 7500, 8000, 10000\}
+\end{equation}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{plots/model_H_finetuning_scaling.png}
+        \par\vspace{3pt}\small\textbf{(a) Model H (Telugu) Data Scaling Trajectory}
+    \end{minipage}\hfill
+    \begin{minipage}{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{plots/model_L_finetuning_scaling.png}
+        \par\vspace{3pt}\small\textbf{(b) Model L (Nepali) Data Scaling Trajectory}
+    \end{minipage}
+    \caption{Empirical data scaling curves during reasoning finetuning for Model H (Telugu) and Model L (Nepali).}
+    \label{fig:finetuning_scaling}
+\end{figure}
+
+The scaling trajectories reveal three distinct phases: a rapid inductive acquisition phase ($N \le 1,000$) where models quickly master prompt syntax; an optimal generalization plateau ($N \in [2,000, 8,000]$) where accuracy peaks at 68.33% for Model H and 84.17% for Model L; and an overfitting phase ($N \to 10,000$) where excessive training data triggers template memorization and validation divergence.
+
+
+\subsection{Pretrained vs. Finetuned Reasoning Performance}
+\label{subsec:reasoning_performance}
+
+\begin{table}[H]
+    \centering
+    \small
+    \setlength{\tabcolsep}{4.5pt}
+    \begin{tabular}{lrrrr}
+        \toprule
+        & \multicolumn{2}{c}{\textbf{Model H (Telugu)}} & \multicolumn{2}{c}{\textbf{Model L (Nepali)}} \\
+        \cmidrule(lr){2-3} \cmidrule(lr){4-5}
+        \textbf{Metric / Evaluation Slice} & \textbf{Pretrained} & \textbf{Finetuned} & \textbf{Pretrained} & \textbf{Finetuned} \\
+        \midrule
+        \textbf{Test Exact Match (EM \%)} & \textbf{1.25\%} & \textbf{58.75\%} & \textbf{30.83\%} & \textbf{81.25\%} \\
+        \textbf{Best Checkpoint Peak EM (\%)} & 1.25\% & \textbf{68.33\%} (8k) & 30.83\% & \textbf{84.17\%} (2.5k) \\
+        \textbf{Test Cross-Entropy Loss (nats)} & 6.6794 & \textbf{0.7699} & 5.7218 & \textbf{0.6217} \\
+        \textbf{Test Perplexity (PPL)} & 795.82 & \textbf{2.16} & 305.46 & \textbf{1.86} \\
+        \midrule
+        \multicolumn{5}{l}{\textit{Accuracy by Reasoning Category ($N = 40$ per slice):}} \\
+        \quad Greater / Smaller / Equal & 0.0\% & \textbf{100.0\%} & 2.5\% & \textbf{100.0\%} \\
+        \quad Numerical Comparisons & 2.5\% & \textbf{90.0\%} & 10.0\% & \textbf{80.0\%} \\
+        \quad Direct Comparisons & 0.0\% & \textbf{75.0\%} & 55.0\% & \textbf{85.0\%} \\
+        \quad 2-Hop Transitive Comparisons & 2.5\% & \textbf{30.0\%} & 45.0\% & \textbf{65.0\%} \\
+        \quad 3-Hop Transitive Comparisons & 2.5\% & \textbf{30.0\%} & 37.5\% & \textbf{80.0\%} \\
+        \quad 4-Hop Transitive Comparisons & 0.0\% & \textbf{27.5\%} & 35.0\% & \textbf{77.5\%} \\
+        \bottomrule
+    \end{tabular}
+    \caption{Pretrained vs. Finetuned performance on held-out synthetic reasoning benchmarks ($N = 240$ test examples under zero train-test leakage). Finetuning produces massive gains in exact match, collapsing perplexity from $>300$ down to $<2.2$.}
+    \label{tab:reasoning_master_eval}
+\end{table}
+
+When we fine-tuned both models, Model H saw a massive leap in exact matches—jumping from a sluggish baseline of 1.25% all the way to 58.75% (and even peaking at 68.33%). On straightforward, 1-hop tasks, both models tied neck-and-neck, hitting an impressive 88.33% mastery.
+Model L, on the other hand, stole the show. It pulled ahead with a stellar 81.25% overall exact match rate. More importantly, it held its ground as the questions got tougher, retaining a solid 77.5% accuracy even on 4-hop chains. We can largely thank Devanagari's regular syllabic tokenization for that win—it kept the text clean and prevented the models from blurring different entities together.
+
+
+\subsection{Qualitative Analysis and Error Taxonomy}
+\label{subsec:reasoning_qualitative}
+
+Table~\ref{tab:reasoning_qualitative_samples} presents qualitative generation examples from held-out test prompts, contrasting pretrained outputs against finetuned reasoning trajectories.
+
+\begin{table}[H]
+    \centering
+    \small
+    \setlength{\tabcolsep}{5pt}
+    \begin{tabular}{p{0.22\linewidth}p{0.72\linewidth}}
+        \toprule
+        \textbf{Test Instance} & \textbf{Text and Mechanistic Generation Analysis} \\
+        \midrule
+        \multicolumn{2}{l}{\textbf{Case 1: Numerical Comparison (Model H — Telugu)}} \\
+        \textbf{Prompt} & \telugu{ప్రశ్న: 45 మరియు 73 సంఖ్యలను పోల్చండి. ఏది పెద్దది? జవాబు:} \\
+        \textbf{Gold Target} & \telugu{73} \\
+        \textbf{Pretrained Output} & \telugu{ఒక పెద్ద ప్రశ్న . జవా బు : ఒక పెద్ద ప్రశ్న ,} \\
+        \textbf{Finetuned Output} & \telugu{7 3 > 45 కాబట్టి సమాధానం 7 3 .} (\textit{Correct}) \\
+        \midrule
+        \multicolumn{2}{l}{\textbf{Case 2: 4-Hop Transitive Distance Ordering (Model L — Nepali)}} \\
+        \textbf{Prompt} & \nepali{प्रश्न: म्याग्दी को दूरी मनाङ भन्दा बढी हो। मनाङ को दूरी पर्सा भन्दा बढी हो। पर्सा को दूरी नुवाकोट भन्दा बढी हो। नुवाकोट को दूरी स्याङ्जा भन्दा बढी हो। म्याग्दी, मनाङ, पर्सा, नुवाकोट र स्याङ्जा मध्ये कुनको दूरी कम हो? उत्तर:} \\
+        \textbf{Gold Target} & \nepali{स्याङ्जा} (\textit{Syangja}) \\
+        \textbf{Pretrained Output} & \nepali{म्याग्दी र मुस्ता ङको दूरी मनाङ भन्दा कम हो । मुस्ता ङ बाट मुस्ता ङ जाने सडक पनि...} \\
+        \textbf{Finetuned Output} & \nepali{क्रम म्याग्दी > मनाङ > पर्सा > वीरगञ्ज । त्यसैले स्याङ् जा कम हो । उत्तर स्याङ् जा ।} (\textit{Correct}) \\
+        \midrule
+        \bottomrule
+    \end{tabular}
+    \caption{Qualitative reasoning generation samples on held-out test prompts for Model H (Telugu) and Model L (Nepali).}
+    \label{tab:reasoning_qualitative_samples}
+\end{table}
+
+
+\subsection{Post-Finetuning Attention Analysis and Head Specialization}
+\label{subsec:finetuned_attention}
+
+To investigate how gradient updates alter internal representations during reasoning adaptation, we re-applied our attention extraction pipeline to the finetuned checkpoints across all 14 sample scales, revealing two core mechanistic phenomena:
+
+\begin{enumerate}
+    \item \textbf{Late-Layer Entropy Compression:} While early layers remain stable ($\Delta H < 0.003$), the final layers (Layers 4 and 5) show sharp entropy reductions. For instance, Model H's Layer 5 drops by $\Delta H = -0.2246$ (from $1.255$ down to $1.030$), and Model L drops by $\Delta H = -0.1983$. Rather than diffusing probability mass, late-layer heads become intensely focused.
+    \item \textbf{Expansion of Query-to-Premise Distance:} Concurrently, late-layer attention distance expands ($\Delta D = +0.4812$ in Model H; $\Delta D = +0.3854$ in Model L). When generating token $T$, attention heads project long-range focal beams back to premise entities ($t \in [5, 25]$), directly implementing an in-context pointer mechanism.
+\end{enumerate}
+
+As illustrated in Figure~\ref{fig:attn_pre_vs_post} and Figure~\ref{fig:finetuned_heatmap_comparisons}, finetuning transforms Layer 5 Head 6 from a diffuse, noisy state into a dedicated \textbf{reasoning pointer head}. It suppresses background noise and allocates over $70\%$ of its total attention weight strictly onto the comparative operator tokens (e.g., \telugu{కంటే} / \nepali{भन्दा}) and target entities in the premise.
+
+\subsection{Key Findings: Data, Tokenization, and Reasoning Dynamics}
+\label{subsec:key_findings}
+
+\noindent\textbf{Q: How did data scale and quality differ between the models?} \\
+Model H leveraged a massive 311M-word IndicCorp and web archive mix, whereas Model L relied heavily on scraped news (over 80\%). Manual collection (47.2\% for Telugu, 20.3\% for Nepali) proved crucial for stripping boilerplate and stabilizing loss.
+
+\vspace{0.5em}
+\noindent\textbf{Q: What tokenizer and corpus factors shaped Model L?} \\
+A vocabulary size of $V = 7,500$ was the sweet spot for Model L (1.89 fertility). Devanagari's cleaner structure, combined with NFC normalization, completely wiped out out-of-vocabulary dropouts.
+
+\vspace{0.5em}
+\noindent\textbf{Q: Why did pretraining fluency not guarantee reasoning success?} \\
+Though Model H won pretraining perplexity ($41.94$ vs. $53.31$), Model L crushed downstream logic—scoring an 81.25\% exact match against Model H's 58.75\% and dominating 4-hop chains ($77.5\%$ vs. $27.5\%$).
+
+\vspace{0.5em}
+\noindent\textbf{Q: What evidence explains Model L's reasoning superiority?} \\
+Four key factors explain the performance gap:
+\begin{enumerate}
+    \item \textbf{Attention Flexibility:} Model L's fluid attention ($\bar{H} = 1.82$) adapted better to graph logic than Model H's rigid representations ($\bar{H} = 1.255$).
+    \item \textbf{Pointer Spans:} Model L cleanly expanded its Layer 5 attention span to track multi-hop chains, avoiding Model H's local loops.
+    \item \textbf{Embedding Traps:} Model H suffered from severe greedy decoding copy loops due to rigid attractor basins.
+    \item \textbf{True Compression Parity:} When measured via Bits-Per-Byte, the initial perplexity gap vanished ($0.0152$ vs. $0.0162$), proving both models compressed their languages with near-identical efficiency.
+\end{enumerate}
+
+
+\subsection{Bonus Ablation Study: Removing Positional Embeddings}
+\label{sec:bonus_ablation}
+
+Removing positional embeddings from Model H causes a total structural collapse. Without position awareness, predictive uncertainty skyrockets—test perplexity surges by $157.3\%$ ($41.94$ to $107.92$) and greedy decoding triggers an alarming \textbf{81.24\% repetition loop} because the model loses all sense of token recency. 
+
+Mechanistically, attention entropy jumps by $33\%$ to $55\%$ and Layer 0's attention distance doubles from $5.65$ to $11.42$, completely wiping out local recency diagonals. This failure boils down to two core theoretical breakdowns:
+\begin{enumerate}
+    \item \textbf{Agglutinative Syntax Collapse:} In Telugu, word order and case markers dictate semantic roles (e.g., \telugu{రాముడు రావణుడిని చూశాడు} [\textit{Rama saw Ravana}] vs. \telugu{రావణుడు రాముడిని చూశాడు} [\textit{Ravana saw Rama}]). Because unrotated attention treats identical tokens identically regardless of position, the model cannot distinguish agent from patient.
+    \item \textbf{Loss of Induction Heads:} Without positional data, attention heads cannot select token $t-1$ over $t-8$ based on proximity, completely shutting down induction circuits and algorithmic pattern copying.
+\end{enumerate}
+
+\end{document}

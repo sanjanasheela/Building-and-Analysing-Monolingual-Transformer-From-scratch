@@ -1,0 +1,42 @@
+# Models
+models/
+
+# =============================================================================
+# Data and Archives Ignore Patterns
+# =============================================================================
+
+*.txt
+*.zip
+*.log
+*.pt
+*.bin
+
+# Large data files - language_H
+language_H/telugu_tokenizer_sample.txt
+language_H/data/processed/
+language_H/data/raw/public/
+language_H/data/raw/manual/sources/
+language_H/data/raw/manual/data/
+
+# Large data files - language_L
+language_L/data/processed/
+language_L/data/raw/manual/data/
+language_L/data/raw/manual/sources/
+language_L/data/raw/public/data/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Binary Shards / Weights
+*.bin
+
+language_H/checkpoints/
+language_L/checkpoints/
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
