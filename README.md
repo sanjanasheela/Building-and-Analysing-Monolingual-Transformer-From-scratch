@@ -35,6 +35,7 @@ The two language pipelines are completely isolated: they share no data, tokenize
 - **Bonus Ablation Study Checkpoints (No Position Embeddings):** [Google Drive File Link](https://drive.google.com/file/d/1j-y0E-GfDzxXGjKAxRjaw90j_37KwQuS/view?usp=drive_link)
 
 ### Reports & Scientific Documentation
+- **Final Report:** [`report.pdf`](./report.pdf)
 - **Consolidated Phase 2 Report:** [`finalphase_2_report.md`](./finalphase_2_report.md)
 - **Telugu Tokenizer & Corpus Report (`language_H`):** [`language_H/telugu_corpus_tokenizer_report.md`](./language_H/telugu_corpus_tokenizer_report.md)
 - **Nepali Tokenizer & Corpus Report (`language_L`):** [`language_L/nepali_corpus_tokenizer_report.md`](./language_L/nepali_corpus_tokenizer_report.md)
