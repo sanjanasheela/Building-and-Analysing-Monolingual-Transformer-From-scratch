@@ -1,0 +1,82 @@
+model_name: run49_deep_swiglu_ctx512_bs128eff_lr1e-03
+language: Telugu
+
+tokenizer:
+  type: BPE
+  vocab_size: 12500
+  tokenizer_path: tokenizer_runs/bpe_vocab_12500/tokenizer.json
+  vocab_path: tokenizer_runs/bpe_vocab_12500/vocab.json
+
+model:
+  d_model: 512              # narrower (was 640) -> traded width for depth at same param budget
+  num_layers: 6             # deeper (was 4)
+  num_heads: 8               # head_dim = 512/8 = 64, still clean
+  ffn_dim: 1365              # correct SwiGLU ratio: (2/3)*4*d_model for d_model=512
+  context_length: 512
+  dropout: 0.05              # lowered from 0.1 -- train/val curves showed no overfitting gap
+  positional_encoding: rope
+  rope_theta: 10000.0
+  normalization: pre_norm
+  activation: SWIGLU
+  tie_embeddings: true
+  init_std: 0.02
+  # ~25.3M total params at these settings (embedding ~6.4M + 6 layers x ~3.15M)
+
+training:
+  batch_size: 16
+  gradient_accumulation_steps: 8   # was 1 -> effective batch 16*8*512 = 65,536 tokens/step (was 8,192)
+  optimizer: AdamW
+  learning_rate: 0.001
+  min_learning_rate: 0.0001
+  weight_decay: 0.1
+  beta1: 0.9
+  beta2: 0.95
+  epsilon: 1.0e-08
+  scheduler: cosine
+  warmup_steps: 3000                # scaled up since fewer, larger optimizer steps now
+  target_tokens: 500000000
+  max_steps: 7630                   # 500,000,000 / 65,536 tokens-per-step ~= 1 epoch over your token budget
+  max_grad_norm: 1.0
+  eval_batches: 20
+  eval_interval: 250                # scaled down from 1000 to match the much lower max_steps
+  checkpoint_interval: 500          # scaled down from 1000 to match the much lower max_steps
+  seed: 42
+
+data:
+  train_path: data/final_data_set/train.txt
+  validation_path: data/final_data_set/val.txt
+  test_path: data/final_data_set/test.txt
+  shard_dir: token_shards
+  val_bin: token_shards/val.bin
+  test_bin: token_shards/test.bin
+  context_length: 512
+  num_workers: 2
+  pin_memory: true
+
+checkpoint:
+  output_dir: checkpoints
+  resume_from: null
+  save_optimizer: true
+  save_scheduler: true
+  save_config: true
+
+evaluation:
+  eval_batch_size: 16
+  temperatures:
+    - 0.5
+    - 1.0
+    - 1.5
+  max_generation_length: 256
+
+logging:
+  log_dir: logs
+  log_interval: 50                  # scaled down from 100 to match the much lower max_steps
+  save_loss_curve: true
+  train_log_filename: train_log.jsonl
+  checkpoint_log_filename: checkpoint_analysis.txt
+  loss_curve_filename: loss_curve.png
+  loss_curve_title: "Training Loss Curve — Model H v2 (Telugu)"
+
+hardware:
+  device: cuda
+  mixed_precision: true

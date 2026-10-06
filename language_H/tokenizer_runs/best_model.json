@@ -1,0 +1,305 @@
+{
+  "selection": {
+    "model_key": "BPE_12500",
+    "algorithm": "BPE",
+    "vocab_size": 12500,
+    "unk_rate_pct": 0.0,
+    "fertility": 1.6973,
+    "avg_chars_per_token": 5.3706,
+    "vocab_coverage_pct": 97.71,
+    "selection_score": 0.0
+  },
+  "test_report": {
+    "vocab_size_stats": {
+      "actual_vocab_size": 12500,
+      "special_tokens": [
+        "<pad>",
+        "<unk>",
+        "<bos>",
+        "<eos>"
+      ],
+      "num_special_tokens": 4
+    },
+    "token_frequency_stats": {
+      "total_unique_tokens_seen": 12211,
+      "vocab_coverage_pct": 97.72,
+      "mean_frequency": 370.91,
+      "median_frequency": 134,
+      "std_frequency": 2722.95,
+      "max_frequency": 259934,
+      "min_frequency": 1,
+      "top_20_most_frequent": [
+        {
+          "token": ".",
+          "count": 259934
+        },
+        {
+          "token": ",",
+          "count": 110290
+        },
+        {
+          "token": "ఈ",
+          "count": 40673
+        },
+        {
+          "token": "లో",
+          "count": 28678
+        },
+        {
+          "token": "..",
+          "count": 25911
+        },
+        {
+          "token": "ఆ",
+          "count": 17614
+        },
+        {
+          "token": "గా",
+          "count": 17588
+        },
+        {
+          "token": "కూడా",
+          "count": 17075
+        },
+        {
+          "token": "కు",
+          "count": 17070
+        },
+        {
+          "token": "ను",
+          "count": 17052
+        },
+        {
+          "token": "ని",
+          "count": 16019
+        },
+        {
+          "token": "తో",
+          "count": 15459
+        },
+        {
+          "token": "కి",
+          "count": 13915
+        },
+        {
+          "token": "లు",
+          "count": 13376
+        },
+        {
+          "token": "పై",
+          "count": 12892
+        },
+        {
+          "token": "ల",
+          "count": 11701
+        },
+        {
+          "token": "ఒక",
+          "count": 11058
+        },
+        {
+          "token": "నుంచి",
+          "count": 10998
+        },
+        {
+          "token": "న",
+          "count": 9664
+        },
+        {
+          "token": "క",
+          "count": 9159
+        }
+      ],
+      "bottom_20_least_frequent": [
+        {
+          "token": "ఞ",
+          "count": 1
+        },
+        {
+          "token": "√",
+          "count": 1
+        },
+        {
+          "token": "మునఁ",
+          "count": 1
+        },
+        {
+          "token": "ుఁ",
+          "count": 1
+        },
+        {
+          "token": "″",
+          "count": 1
+        },
+        {
+          "token": "¸",
+          "count": 1
+        },
+        {
+          "token": "రంబు",
+          "count": 1
+        },
+        {
+          "token": "౯",
+          "count": 1
+        },
+        {
+          "token": "౬",
+          "count": 1
+        },
+        {
+          "token": "ంబున",
+          "count": 1
+        },
+        {
+          "token": "ð",
+          "count": 1
+        },
+        {
+          "token": "¯",
+          "count": 1
+        },
+        {
+          "token": "¨",
+          "count": 1
+        },
+        {
+          "token": "­",
+          "count": 1
+        },
+        {
+          "token": "౪",
+          "count": 1
+        },
+        {
+          "token": "౧",
+          "count": 1
+        },
+        {
+          "token": "గాఁ",
+          "count": 1
+        },
+        {
+          "token": "నఁ",
+          "count": 1
+        },
+        {
+          "token": "ఁక",
+          "count": 1
+        },
+        {
+          "token": "©",
+          "count": 1
+        }
+      ]
+    },
+    "avg_chars_per_token": {
+      "avg_chars_per_token": 5.3706,
+      "median_chars_per_token": 5.0,
+      "std_chars_per_token": 2.5328,
+      "max_chars_in_token": 19,
+      "min_chars_in_token": 1
+    },
+    "tokenization_examples": [
+      {
+        "input": "భారతదేశం వివిధ సంస్కృతులు మరియు సాంప్రదాయాల దేశం.",
+        "tokens": [
+          "భారతదేశం",
+          "వివిధ",
+          "సంస్కృ",
+          "తులు",
+          "మరియు",
+          "సాంప్ర",
+          "దా",
+          "యాల",
+          "దేశం",
+          "."
+        ],
+        "token_count": 10,
+        "word_count": 6,
+        "fertility": 1.6667
+      },
+      {
+        "input": "తెలుగు భాష ఆంధ్రప్రదేశ్ మరియు తెలంగాణ రాష్ట్రాలలో మాట్లాడబడుతుంది.",
+        "tokens": [
+          "తెలుగు",
+          "భాష",
+          "ఆంధ్రప్రదేశ్",
+          "మరియు",
+          "తెలంగాణ",
+          "రాష్ట్రాలలో",
+          "మాట్లాడ",
+          "బడుతుంది",
+          "."
+        ],
+        "token_count": 9,
+        "word_count": 7,
+        "fertility": 1.2857
+      },
+      {
+        "input": "హైదరాబాద్ చార్మినార్ మరియు టెక్నాలజీకి ప్రసిద్ధి చెందింది.",
+        "tokens": [
+          "హైదరాబాద్",
+          "చార్",
+          "మిన",
+          "ార్",
+          "మరియు",
+          "టెక్నాలజీ",
+          "కి",
+          "ప్రసిద్ధి",
+          "చెందింది",
+          "."
+        ],
+        "token_count": 10,
+        "word_count": 6,
+        "fertility": 1.6667
+      },
+      {
+        "input": "సాంకేతికత మానవ జీవితాన్ని ఎంతో సులభతరం చేసింది.",
+        "tokens": [
+          "సాంకేతిక",
+          "త",
+          "మానవ",
+          "జీవితాన్ని",
+          "ఎంతో",
+          "సులభ",
+          "తరం",
+          "చేసింది",
+          "."
+        ],
+        "token_count": 9,
+        "word_count": 6,
+        "fertility": 1.5
+      },
+      {
+        "input": "ప్రకృతి అందాలు మన మనసును ప్రశాంతంగా ఉంచుతాయి.",
+        "tokens": [
+          "ప్రకృతి",
+          "అంద",
+          "ాలు",
+          "మన",
+          "మనసు",
+          "ను",
+          "ప్రశాంతంగా",
+          "ఉంచు",
+          "తాయి",
+          "."
+        ],
+        "token_count": 10,
+        "word_count": 6,
+        "fertility": 1.6667
+      }
+    ],
+    "unk_token_stats": {
+      "docs_evaluated": 78963,
+      "total_words": 2662688,
+      "total_tokens": 4529193,
+      "unk_count": 1,
+      "unk_rate_pct": 0.0,
+      "fertility": 1.701,
+      "oov_word_examples": [
+        "Şహిన్,"
+      ]
+    }
+  }
+}

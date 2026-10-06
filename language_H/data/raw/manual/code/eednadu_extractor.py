@@ -1,0 +1,209 @@
+"""
+Phase 2: Eenadu Data Extractor
+Uses trafilatura.fetch_url() to avoid encoding issues.
+Reads from eenadu_links.txt, extracts text, saves to chunked 100MB files.
+No language filter — raw text saved; user will filter afterward.
+Never re-fetches a URL already recorded in processed_links.txt, even across restarts.
+"""
+
+import re
+import time
+import queue
+import socket
+import threading
+import unicodedata
+import warnings
+from pathlib import Path
+from bs4 import BeautifulSoup, XMLParsedAsHTMLWarning
+import trafilatura
+
+warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)
+socket.setdefaulttimeout(20)
+
+LINKS_FILE = Path("/home/sanjana/Documents/7/LMA/individual-project-sanjanasheela/language_H/data/raw/manual/data/eenadu/eenadu_links.txt")
+OUTPUT_DIR  = Path("/home/sanjana/Documents/7/LMA/individual-project-sanjanasheela/language_H/data/raw/manual/data/eenadu")
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+TARGET_BYTES = 1024 * 1024 * 1024   # 1 GB
+CHUNK_BYTES  = 100 * 1024 * 1024    # rotate every 100 MB
+NUM_THREADS  = 12
+DELAY        = 0.1                   # slight delay between requests per thread
+MIN_TEXT_LEN = 100
+
+
+def clean_text(text: str) -> str:
+    if not text:
+        return ""
+    text = unicodedata.normalize("NFC", text)
+    text = re.sub(r'[ \t]+', ' ', text)
+    text = re.sub(r'\n{3,}', '\n\n', text)
+    return text.strip()
+
+
+class Extractor:
+    def __init__(self):
+        self.url_queue  = queue.Queue()
+        self.lock       = threading.Lock()
+        self.total_bytes   = 0
+        self.total_articles = 0
+        self.running    = True
+        self.start_time = time.time()
+
+        # Resume support: find highest existing chunk
+        self.file_index = 1
+        for p in OUTPUT_DIR.glob("eenadu_articles_*.txt"):
+            self.total_bytes += p.stat().st_size
+            idx = int(p.stem.split("_")[-1])
+            if idx > self.file_index:
+                self.file_index = idx
+        if self.total_bytes:
+            print(f"Resuming: {self.total_bytes/(1024*1024):.1f} MB already saved")
+
+        self.current_path = OUTPUT_DIR / f"eenadu_articles_{self.file_index}.txt"
+        self.out_file = open(self.current_path, "a", encoding="utf-8")
+        self.file_bytes = self.current_path.stat().st_size if self.current_path.exists() else 0
+
+        # Processed-links log for deduplication across crashes/restarts.
+        # A URL logged here is NEVER fetched again, even in future runs.
+        self.proc_path = OUTPUT_DIR / "processed_links.txt"
+        self.proc_file = open(self.proc_path, "a", encoding="utf-8")
+        self.processed = set()
+        if self.proc_path.exists():
+            with open(self.proc_path, encoding="utf-8") as f:
+                for line in f:
+                    self.processed.add(line.strip())
+
+        # Load all links, skip anything already processed
+        links = []
+        if LINKS_FILE.exists():
+            with open(LINKS_FILE, encoding="utf-8") as f:
+                links = [l.strip() for l in f if l.strip()]
+
+        print(f"Total links : {len(links):,}")
+        print(f"Already done: {len(self.processed):,}")
+
+        seen_this_run = set()
+        for u in links:
+            if u not in self.processed and u not in seen_this_run:
+                seen_this_run.add(u)
+                self.url_queue.put(u)
+
+    def _rotate(self):
+        """Open next chunk file."""
+        self.out_file.close()
+        self.file_index += 1
+        self.current_path = OUTPUT_DIR / f"eenadu_articles_{self.file_index}.txt"
+        self.out_file = open(self.current_path, "a", encoding="utf-8")
+        self.file_bytes = 0
+
+    def save(self, url: str, text: str):
+        content = text + "\n\n"
+        size = len(content.encode("utf-8"))
+        with self.lock:
+            # Double-check under the lock in case two workers raced on the same URL
+            if url in self.processed:
+                return
+            self.out_file.write(content)
+            self.out_file.flush()
+            self.proc_file.write(url + "\n")
+            self.proc_file.flush()
+            self.processed.add(url)
+            self.file_bytes    += size
+            self.total_bytes   += size
+            self.total_articles += 1
+            if self.file_bytes >= CHUNK_BYTES:
+                self._rotate()
+
+    def process(self, url: str):
+        try:
+            # Skip if it slipped in twice before we got to it
+            with self.lock:
+                if url in self.processed:
+                    return
+
+            # Use trafilatura.fetch_url — handles encoding correctly
+            downloaded = trafilatura.fetch_url(url)
+            if not downloaded:
+                return
+
+            text = trafilatura.extract(
+                downloaded,
+                include_comments=False,
+                include_tables=False,
+                no_fallback=False
+            )
+
+            # Fallback: BeautifulSoup on article body (Eenadu content wrapper classes)
+            if not text or len(text) < MIN_TEXT_LEN:
+                soup = BeautifulSoup(downloaded, "lxml")
+                body = soup.find("div", class_=re.compile(
+                    r'story-content|article-content|main-content|fullstory|content-body'
+                ))
+                if body:
+                    paras = [p.get_text().strip() for p in body.find_all("p")
+                             if len(p.get_text().strip()) > 20]
+                    text = "\n".join(paras)
+
+            text = clean_text(text)
+            if text and len(text) >= MIN_TEXT_LEN:
+                self.save(url, text)
+
+        except Exception:
+            pass
+
+    def worker(self):
+        while self.running and self.total_bytes < TARGET_BYTES:
+            try:
+                url = self.url_queue.get(timeout=5)
+            except queue.Empty:
+                # Reload links file in case spider added more URLs
+                if LINKS_FILE.exists():
+                    with self.lock:
+                        with open(LINKS_FILE, encoding="utf-8") as f:
+                            for line in f:
+                                u = line.strip()
+                                if u and u not in self.processed:
+                                    self.url_queue.put(u)
+                time.sleep(2)
+                continue
+
+            self.process(url)
+            self.url_queue.task_done()
+            time.sleep(DELAY)
+
+    def monitor(self):
+        while self.running and self.total_bytes < TARGET_BYTES:
+            time.sleep(15)
+            elapsed = max(time.time() - self.start_time, 1)
+            mb = self.total_bytes / (1024 * 1024)
+            target_mb = TARGET_BYTES / (1024 * 1024)
+            rate = mb / (elapsed / 60)
+            eta_min = (target_mb - mb) / rate if rate > 0 else 999
+            print(
+                f"[EN] {mb:.1f} MB / {target_mb:.0f} MB | {self.total_articles:,} articles | "
+                f"{self.url_queue.qsize():,} queued | "
+                f"{rate:.1f} MB/min | ETA ~{eta_min:.0f} min",
+                flush=True
+            )
+
+    def run(self):
+        print("=== Eenadu Extractor (trafilatura.fetch_url mode) ===")
+        m = threading.Thread(target=self.monitor, daemon=True)
+        m.start()
+
+        threads = [threading.Thread(target=self.worker) for _ in range(NUM_THREADS)]
+        for t in threads:
+            t.start()
+        for t in threads:
+            t.join()
+
+        self.running = False
+        with self.lock:
+            self.out_file.close()
+            self.proc_file.close()
+        print(f"Done! {self.total_bytes/(1024*1024):.1f} MB in {self.total_articles:,} articles.")
+
+
+if __name__ == "__main__":
+    e = Extractor()
+    e.run()

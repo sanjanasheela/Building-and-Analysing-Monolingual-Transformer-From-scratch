@@ -1,0 +1,1186 @@
+{
+  "BPE_5000": {
+    "vocab_size_stats": {
+      "actual_vocab_size": 5000,
+      "special_tokens": [
+        "<pad>",
+        "<unk>",
+        "<bos>",
+        "<eos>"
+      ],
+      "num_special_tokens": 4
+    },
+    "token_frequency_stats": {
+      "total_unique_tokens_seen": 4743,
+      "vocab_coverage_pct": 94.94,
+      "mean_frequency": 1149.84,
+      "median_frequency": 480,
+      "std_frequency": 4640.12,
+      "max_frequency": 259508,
+      "min_frequency": 1,
+      "top_20_most_frequent": [
+        {
+          "token": ".",
+          "count": 259508
+        },
+        {
+          "token": ",",
+          "count": 111167
+        },
+        {
+          "token": "లో",
+          "count": 45397
+        },
+        {
+          "token": "ఈ",
+          "count": 42658
+        },
+        {
+          "token": "ని",
+          "count": 29316
+        },
+        {
+          "token": "కు",
+          "count": 28521
+        },
+        {
+          "token": "ను",
+          "count": 28051
+        },
+        {
+          "token": "గా",
+          "count": 27600
+        },
+        {
+          "token": "లు",
+          "count": 26668
+        },
+        {
+          "token": "..",
+          "count": 26235
+        },
+        {
+          "token": "ఆ",
+          "count": 25695
+        },
+        {
+          "token": "ల",
+          "count": 23171
+        },
+        {
+          "token": "న",
+          "count": 22375
+        },
+        {
+          "token": "క",
+          "count": 22344
+        },
+        {
+          "token": "కి",
+          "count": 21980
+        },
+        {
+          "token": "తో",
+          "count": 20368
+        },
+        {
+          "token": "త",
+          "count": 18741
+        },
+        {
+          "token": "వి",
+          "count": 17903
+        },
+        {
+          "token": "మ",
+          "count": 17510
+        },
+        {
+          "token": "అ",
+          "count": 17486
+        }
+      ],
+      "bottom_20_least_frequent": [
+        {
+          "token": "Š",
+          "count": 1
+        },
+        {
+          "token": "దర్యాప్",
+          "count": 1
+        },
+        {
+          "token": "ó",
+          "count": 1
+        },
+        {
+          "token": "Œ",
+          "count": 1
+        },
+        {
+          "token": "¯",
+          "count": 1
+        },
+        {
+          "token": "౭",
+          "count": 1
+        },
+        {
+          "token": "²",
+          "count": 1
+        },
+        {
+          "token": "®",
+          "count": 1
+        },
+        {
+          "token": "−",
+          "count": 1
+        },
+        {
+          "token": "‡",
+          "count": 1
+        },
+        {
+          "token": "ౡ",
+          "count": 1
+        },
+        {
+          "token": "@",
+          "count": 1
+        },
+        {
+          "token": "ఞ",
+          "count": 1
+        },
+        {
+          "token": "స్ఫూ",
+          "count": 1
+        },
+        {
+          "token": "౫",
+          "count": 1
+        },
+        {
+          "token": "Ÿ",
+          "count": 1
+        },
+        {
+          "token": "౪",
+          "count": 2
+        },
+        {
+          "token": "౬",
+          "count": 2
+        },
+        {
+          "token": "}",
+          "count": 2
+        },
+        {
+          "token": "{",
+          "count": 2
+        }
+      ]
+    },
+    "avg_chars_per_token": {
+      "avg_chars_per_token": 4.4083,
+      "median_chars_per_token": 4.0,
+      "std_chars_per_token": 2.2306,
+      "max_chars_in_token": 16,
+      "min_chars_in_token": 1
+    },
+    "tokenization_examples": [
+      {
+        "input": "భారతదేశం వివిధ సంస్కృతులు మరియు సాంప్రదాయాల దేశం.",
+        "tokens": [
+          "భారత",
+          "దేశం",
+          "వివిధ",
+          "సంస్",
+          "కృ",
+          "తులు",
+          "మరియు",
+          "సాం",
+          "ప్ర",
+          "దా",
+          "యాల",
+          "దేశం",
+          "."
+        ],
+        "token_count": 13,
+        "word_count": 6,
+        "fertility": 2.1667
+      },
+      {
+        "input": "తెలుగు భాష ఆంధ్రప్రదేశ్ మరియు తెలంగాణ రాష్ట్రాలలో మాట్లాడబడుతుంది.",
+        "tokens": [
+          "తెలుగు",
+          "భాష",
+          "ఆంధ్ర",
+          "ప్రదేశ",
+          "్",
+          "మరియు",
+          "తెలంగాణ",
+          "రాష్ట్ర",
+          "ాలలో",
+          "మాట్లాడ",
+          "బడుతుంది",
+          "."
+        ],
+        "token_count": 12,
+        "word_count": 7,
+        "fertility": 1.7143
+      },
+      {
+        "input": "హైదరాబాద్ చార్మినార్ మరియు టెక్నాలజీకి ప్రసిద్ధి చెందింది.",
+        "tokens": [
+          "హైదరాబాద్",
+          "చార్",
+          "మిన",
+          "ార్",
+          "మరియు",
+          "టెక్నాలజీ",
+          "కి",
+          "ప్ర",
+          "సిద్ధి",
+          "చె",
+          "ంది",
+          "ంది",
+          "."
+        ],
+        "token_count": 13,
+        "word_count": 6,
+        "fertility": 2.1667
+      },
+      {
+        "input": "సాంకేతికత మానవ జీవితాన్ని ఎంతో సులభతరం చేసింది.",
+        "tokens": [
+          "సాంకేతిక",
+          "త",
+          "మానవ",
+          "జీవి",
+          "తాన్ని",
+          "ఎంతో",
+          "సులభ",
+          "తరం",
+          "చేసింది",
+          "."
+        ],
+        "token_count": 10,
+        "word_count": 6,
+        "fertility": 1.6667
+      },
+      {
+        "input": "ప్రకృతి అందాలు మన మనసును ప్రశాంతంగా ఉంచుతాయి.",
+        "tokens": [
+          "ప్రకృతి",
+          "అంద",
+          "ాలు",
+          "మన",
+          "మనసు",
+          "ను",
+          "ప్రశాంత",
+          "ంగా",
+          "ఉ",
+          "ంచు",
+          "తాయి",
+          "."
+        ],
+        "token_count": 12,
+        "word_count": 6,
+        "fertility": 2.0
+      }
+    ],
+    "unk_token_stats": {
+      "docs_evaluated": 79742,
+      "total_words": 2669480,
+      "total_tokens": 5453710,
+      "unk_count": 0,
+      "unk_rate_pct": 0.0,
+      "fertility": 2.043,
+      "oov_word_examples": []
+    }
+  },
+  "BPE_7500": {
+    "vocab_size_stats": {
+      "actual_vocab_size": 7500,
+      "special_tokens": [
+        "<pad>",
+        "<unk>",
+        "<bos>",
+        "<eos>"
+      ],
+      "num_special_tokens": 4
+    },
+    "token_frequency_stats": {
+      "total_unique_tokens_seen": 7237,
+      "vocab_coverage_pct": 96.54,
+      "mean_frequency": 690.27,
+      "median_frequency": 274,
+      "std_frequency": 3622.27,
+      "max_frequency": 258946,
+      "min_frequency": 1,
+      "top_20_most_frequent": [
+        {
+          "token": ".",
+          "count": 258946
+        },
+        {
+          "token": ",",
+          "count": 110901
+        },
+        {
+          "token": "ఈ",
+          "count": 41471
+        },
+        {
+          "token": "లో",
+          "count": 37822
+        },
+        {
+          "token": "..",
+          "count": 26235
+        },
+        {
+          "token": "కు",
+          "count": 23618
+        },
+        {
+          "token": "గా",
+          "count": 22601
+        },
+        {
+          "token": "ని",
+          "count": 22482
+        },
+        {
+          "token": "ను",
+          "count": 22164
+        },
+        {
+          "token": "ఆ",
+          "count": 21299
+        },
+        {
+          "token": "లు",
+          "count": 20743
+        },
+        {
+          "token": "తో",
+          "count": 17800
+        },
+        {
+          "token": "ల",
+          "count": 17363
+        },
+        {
+          "token": "కూడా",
+          "count": 17176
+        },
+        {
+          "token": "కి",
+          "count": 17111
+        },
+        {
+          "token": "క",
+          "count": 15995
+        },
+        {
+          "token": "న",
+          "count": 14886
+        },
+        {
+          "token": "పై",
+          "count": 14305
+        },
+        {
+          "token": "అ",
+          "count": 12772
+        },
+        {
+          "token": "వి",
+          "count": 12510
+        }
+      ],
+      "bottom_20_least_frequent": [
+        {
+          "token": "Š",
+          "count": 1
+        },
+        {
+          "token": "పర్యం",
+          "count": 1
+        },
+        {
+          "token": "దర్యాప్",
+          "count": 1
+        },
+        {
+          "token": "ó",
+          "count": 1
+        },
+        {
+          "token": "వహించదు",
+          "count": 1
+        },
+        {
+          "token": "మఱి",
+          "count": 1
+        },
+        {
+          "token": "Œ",
+          "count": 1
+        },
+        {
+          "token": "¯",
+          "count": 1
+        },
+        {
+          "token": "౭",
+          "count": 1
+        },
+        {
+          "token": "²",
+          "count": 1
+        },
+        {
+          "token": "®",
+          "count": 1
+        },
+        {
+          "token": "−",
+          "count": 1
+        },
+        {
+          "token": "‡",
+          "count": 1
+        },
+        {
+          "token": "సంప్ర",
+          "count": 1
+        },
+        {
+          "token": "ౡ",
+          "count": 1
+        },
+        {
+          "token": "ృప్తి",
+          "count": 1
+        },
+        {
+          "token": "@",
+          "count": 1
+        },
+        {
+          "token": "చినను",
+          "count": 1
+        },
+        {
+          "token": "అనారో",
+          "count": 1
+        },
+        {
+          "token": "ఞ",
+          "count": 1
+        }
+      ]
+    },
+    "avg_chars_per_token": {
+      "avg_chars_per_token": 4.84,
+      "median_chars_per_token": 4.0,
+      "std_chars_per_token": 2.3708,
+      "max_chars_in_token": 17,
+      "min_chars_in_token": 1
+    },
+    "tokenization_examples": [
+      {
+        "input": "భారతదేశం వివిధ సంస్కృతులు మరియు సాంప్రదాయాల దేశం.",
+        "tokens": [
+          "భారతదేశం",
+          "వివిధ",
+          "సంస్కృ",
+          "తులు",
+          "మరియు",
+          "సాం",
+          "ప్ర",
+          "దా",
+          "యాల",
+          "దేశం",
+          "."
+        ],
+        "token_count": 11,
+        "word_count": 6,
+        "fertility": 1.8333
+      },
+      {
+        "input": "తెలుగు భాష ఆంధ్రప్రదేశ్ మరియు తెలంగాణ రాష్ట్రాలలో మాట్లాడబడుతుంది.",
+        "tokens": [
+          "తెలుగు",
+          "భాష",
+          "ఆంధ్ర",
+          "ప్రదేశ్",
+          "మరియు",
+          "తెలంగాణ",
+          "రాష్ట్ర",
+          "ాలలో",
+          "మాట్లాడ",
+          "బడుతుంది",
+          "."
+        ],
+        "token_count": 11,
+        "word_count": 7,
+        "fertility": 1.5714
+      },
+      {
+        "input": "హైదరాబాద్ చార్మినార్ మరియు టెక్నాలజీకి ప్రసిద్ధి చెందింది.",
+        "tokens": [
+          "హైదరాబాద్",
+          "చార్",
+          "మిన",
+          "ార్",
+          "మరియు",
+          "టెక్నాలజీ",
+          "కి",
+          "ప్ర",
+          "సిద్ధి",
+          "చెంది",
+          "ంది",
+          "."
+        ],
+        "token_count": 12,
+        "word_count": 6,
+        "fertility": 2.0
+      },
+      {
+        "input": "సాంకేతికత మానవ జీవితాన్ని ఎంతో సులభతరం చేసింది.",
+        "tokens": [
+          "సాంకేతిక",
+          "త",
+          "మానవ",
+          "జీవితాన్ని",
+          "ఎంతో",
+          "సులభ",
+          "తరం",
+          "చేసింది",
+          "."
+        ],
+        "token_count": 9,
+        "word_count": 6,
+        "fertility": 1.5
+      },
+      {
+        "input": "ప్రకృతి అందాలు మన మనసును ప్రశాంతంగా ఉంచుతాయి.",
+        "tokens": [
+          "ప్రకృతి",
+          "అంద",
+          "ాలు",
+          "మన",
+          "మనసు",
+          "ను",
+          "ప్రశాంత",
+          "ంగా",
+          "ఉంచు",
+          "తాయి",
+          "."
+        ],
+        "token_count": 11,
+        "word_count": 6,
+        "fertility": 1.8333
+      }
+    ],
+    "unk_token_stats": {
+      "docs_evaluated": 79742,
+      "total_words": 2669480,
+      "total_tokens": 4995504,
+      "unk_count": 0,
+      "unk_rate_pct": 0.0,
+      "fertility": 1.8713,
+      "oov_word_examples": []
+    }
+  },
+  "BPE_10000": {
+    "vocab_size_stats": {
+      "actual_vocab_size": 10000,
+      "special_tokens": [
+        "<pad>",
+        "<unk>",
+        "<bos>",
+        "<eos>"
+      ],
+      "num_special_tokens": 4
+    },
+    "token_frequency_stats": {
+      "total_unique_tokens_seen": 9727,
+      "vocab_coverage_pct": 97.31,
+      "mean_frequency": 485.13,
+      "median_frequency": 184,
+      "std_frequency": 3070.49,
+      "max_frequency": 258743,
+      "min_frequency": 1,
+      "top_20_most_frequent": [
+        {
+          "token": ".",
+          "count": 258743
+        },
+        {
+          "token": ",",
+          "count": 110760
+        },
+        {
+          "token": "ఈ",
+          "count": 40931
+        },
+        {
+          "token": "లో",
+          "count": 32517
+        },
+        {
+          "token": "..",
+          "count": 26235
+        },
+        {
+          "token": "కు",
+          "count": 19754
+        },
+        {
+          "token": "ను",
+          "count": 19543
+        },
+        {
+          "token": "గా",
+          "count": 19258
+        },
+        {
+          "token": "ని",
+          "count": 18934
+        },
+        {
+          "token": "ఆ",
+          "count": 18769
+        },
+        {
+          "token": "కూడా",
+          "count": 17176
+        },
+        {
+          "token": "తో",
+          "count": 16218
+        },
+        {
+          "token": "లు",
+          "count": 15945
+        },
+        {
+          "token": "కి",
+          "count": 15646
+        },
+        {
+          "token": "ల",
+          "count": 13558
+        },
+        {
+          "token": "పై",
+          "count": 13478
+        },
+        {
+          "token": "న",
+          "count": 12032
+        },
+        {
+          "token": "ఒక",
+          "count": 11608
+        },
+        {
+          "token": "క",
+          "count": 11306
+        },
+        {
+          "token": "నుంచి",
+          "count": 10780
+        }
+      ],
+      "bottom_20_least_frequent": [
+        {
+          "token": "Š",
+          "count": 1
+        },
+        {
+          "token": "పర్యం",
+          "count": 1
+        },
+        {
+          "token": "దర్యాప్",
+          "count": 1
+        },
+        {
+          "token": "ó",
+          "count": 1
+        },
+        {
+          "token": "వహించదు",
+          "count": 1
+        },
+        {
+          "token": "ఁగి",
+          "count": 1
+        },
+        {
+          "token": "మఱి",
+          "count": 1
+        },
+        {
+          "token": "Œ",
+          "count": 1
+        },
+        {
+          "token": "¯",
+          "count": 1
+        },
+        {
+          "token": "౭",
+          "count": 1
+        },
+        {
+          "token": "²",
+          "count": 1
+        },
+        {
+          "token": "®",
+          "count": 1
+        },
+        {
+          "token": "యః",
+          "count": 1
+        },
+        {
+          "token": "జార్టీ",
+          "count": 1
+        },
+        {
+          "token": "సైటీ",
+          "count": 1
+        },
+        {
+          "token": "−",
+          "count": 1
+        },
+        {
+          "token": "‡",
+          "count": 1
+        },
+        {
+          "token": "వలయు",
+          "count": 1
+        },
+        {
+          "token": "సంప్ర",
+          "count": 1
+        },
+        {
+          "token": "ౡ",
+          "count": 1
+        }
+      ]
+    },
+    "avg_chars_per_token": {
+      "avg_chars_per_token": 5.1275,
+      "median_chars_per_token": 5.0,
+      "std_chars_per_token": 2.4472,
+      "max_chars_in_token": 17,
+      "min_chars_in_token": 1
+    },
+    "tokenization_examples": [
+      {
+        "input": "భారతదేశం వివిధ సంస్కృతులు మరియు సాంప్రదాయాల దేశం.",
+        "tokens": [
+          "భారతదేశం",
+          "వివిధ",
+          "సంస్కృ",
+          "తులు",
+          "మరియు",
+          "సాంప్ర",
+          "దా",
+          "యాల",
+          "దేశం",
+          "."
+        ],
+        "token_count": 10,
+        "word_count": 6,
+        "fertility": 1.6667
+      },
+      {
+        "input": "తెలుగు భాష ఆంధ్రప్రదేశ్ మరియు తెలంగాణ రాష్ట్రాలలో మాట్లాడబడుతుంది.",
+        "tokens": [
+          "తెలుగు",
+          "భాష",
+          "ఆంధ్ర",
+          "ప్రదేశ్",
+          "మరియు",
+          "తెలంగాణ",
+          "రాష్ట్ర",
+          "ాలలో",
+          "మాట్లాడ",
+          "బడుతుంది",
+          "."
+        ],
+        "token_count": 11,
+        "word_count": 7,
+        "fertility": 1.5714
+      },
+      {
+        "input": "హైదరాబాద్ చార్మినార్ మరియు టెక్నాలజీకి ప్రసిద్ధి చెందింది.",
+        "tokens": [
+          "హైదరాబాద్",
+          "చార్",
+          "మిన",
+          "ార్",
+          "మరియు",
+          "టెక్నాలజీ",
+          "కి",
+          "ప్రసిద్ధి",
+          "చెందింది",
+          "."
+        ],
+        "token_count": 10,
+        "word_count": 6,
+        "fertility": 1.6667
+      },
+      {
+        "input": "సాంకేతికత మానవ జీవితాన్ని ఎంతో సులభతరం చేసింది.",
+        "tokens": [
+          "సాంకేతిక",
+          "త",
+          "మానవ",
+          "జీవితాన్ని",
+          "ఎంతో",
+          "సులభ",
+          "తరం",
+          "చేసింది",
+          "."
+        ],
+        "token_count": 9,
+        "word_count": 6,
+        "fertility": 1.5
+      },
+      {
+        "input": "ప్రకృతి అందాలు మన మనసును ప్రశాంతంగా ఉంచుతాయి.",
+        "tokens": [
+          "ప్రకృతి",
+          "అంద",
+          "ాలు",
+          "మన",
+          "మనసు",
+          "ను",
+          "ప్రశాంతంగా",
+          "ఉంచు",
+          "తాయి",
+          "."
+        ],
+        "token_count": 10,
+        "word_count": 6,
+        "fertility": 1.6667
+      }
+    ],
+    "unk_token_stats": {
+      "docs_evaluated": 79742,
+      "total_words": 2669480,
+      "total_tokens": 4718818,
+      "unk_count": 0,
+      "unk_rate_pct": 0.0,
+      "fertility": 1.7677,
+      "oov_word_examples": []
+    }
+  },
+  "BPE_12500": {
+    "vocab_size_stats": {
+      "actual_vocab_size": 12500,
+      "special_tokens": [
+        "<pad>",
+        "<unk>",
+        "<bos>",
+        "<eos>"
+      ],
+      "num_special_tokens": 4
+    },
+    "token_frequency_stats": {
+      "total_unique_tokens_seen": 12210,
+      "vocab_coverage_pct": 97.71,
+      "mean_frequency": 371.07,
+      "median_frequency": 133.0,
+      "std_frequency": 2713.58,
+      "max_frequency": 258546,
+      "min_frequency": 1,
+      "top_20_most_frequent": [
+        {
+          "token": ".",
+          "count": 258546
+        },
+        {
+          "token": ",",
+          "count": 110648
+        },
+        {
+          "token": "ఈ",
+          "count": 40680
+        },
+        {
+          "token": "లో",
+          "count": 28425
+        },
+        {
+          "token": "..",
+          "count": 26149
+        },
+        {
+          "token": "ఆ",
+          "count": 17484
+        },
+        {
+          "token": "గా",
+          "count": 17358
+        },
+        {
+          "token": "కు",
+          "count": 17346
+        },
+        {
+          "token": "కూడా",
+          "count": 17176
+        },
+        {
+          "token": "ను",
+          "count": 17072
+        },
+        {
+          "token": "ని",
+          "count": 16484
+        },
+        {
+          "token": "తో",
+          "count": 15630
+        },
+        {
+          "token": "కి",
+          "count": 13990
+        },
+        {
+          "token": "లు",
+          "count": 13202
+        },
+        {
+          "token": "పై",
+          "count": 12541
+        },
+        {
+          "token": "ల",
+          "count": 11800
+        },
+        {
+          "token": "ఒక",
+          "count": 11369
+        },
+        {
+          "token": "నుంచి",
+          "count": 10780
+        },
+        {
+          "token": "న",
+          "count": 9565
+        },
+        {
+          "token": "-",
+          "count": 9241
+        }
+      ],
+      "bottom_20_least_frequent": [
+        {
+          "token": "Š",
+          "count": 1
+        },
+        {
+          "token": "లఁ",
+          "count": 1
+        },
+        {
+          "token": "పర్యం",
+          "count": 1
+        },
+        {
+          "token": "దర్యాప్",
+          "count": 1
+        },
+        {
+          "token": "ó",
+          "count": 1
+        },
+        {
+          "token": "వహించదు",
+          "count": 1
+        },
+        {
+          "token": "ఁగి",
+          "count": 1
+        },
+        {
+          "token": "మఱి",
+          "count": 1
+        },
+        {
+          "token": "Œ",
+          "count": 1
+        },
+        {
+          "token": "¯",
+          "count": 1
+        },
+        {
+          "token": "౭",
+          "count": 1
+        },
+        {
+          "token": "²",
+          "count": 1
+        },
+        {
+          "token": "®",
+          "count": 1
+        },
+        {
+          "token": "తాః",
+          "count": 1
+        },
+        {
+          "token": "యః",
+          "count": 1
+        },
+        {
+          "token": "జార్టీ",
+          "count": 1
+        },
+        {
+          "token": "బయల్",
+          "count": 1
+        },
+        {
+          "token": "సైటీ",
+          "count": 1
+        },
+        {
+          "token": "తస్య",
+          "count": 1
+        },
+        {
+          "token": "−",
+          "count": 1
+        }
+      ]
+    },
+    "avg_chars_per_token": {
+      "avg_chars_per_token": 5.3706,
+      "median_chars_per_token": 5.0,
+      "std_chars_per_token": 2.5328,
+      "max_chars_in_token": 19,
+      "min_chars_in_token": 1
+    },
+    "tokenization_examples": [
+      {
+        "input": "భారతదేశం వివిధ సంస్కృతులు మరియు సాంప్రదాయాల దేశం.",
+        "tokens": [
+          "భారతదేశం",
+          "వివిధ",
+          "సంస్కృ",
+          "తులు",
+          "మరియు",
+          "సాంప్ర",
+          "దా",
+          "యాల",
+          "దేశం",
+          "."
+        ],
+        "token_count": 10,
+        "word_count": 6,
+        "fertility": 1.6667
+      },
+      {
+        "input": "తెలుగు భాష ఆంధ్రప్రదేశ్ మరియు తెలంగాణ రాష్ట్రాలలో మాట్లాడబడుతుంది.",
+        "tokens": [
+          "తెలుగు",
+          "భాష",
+          "ఆంధ్రప్రదేశ్",
+          "మరియు",
+          "తెలంగాణ",
+          "రాష్ట్రాలలో",
+          "మాట్లాడ",
+          "బడుతుంది",
+          "."
+        ],
+        "token_count": 9,
+        "word_count": 7,
+        "fertility": 1.2857
+      },
+      {
+        "input": "హైదరాబాద్ చార్మినార్ మరియు టెక్నాలజీకి ప్రసిద్ధి చెందింది.",
+        "tokens": [
+          "హైదరాబాద్",
+          "చార్",
+          "మిన",
+          "ార్",
+          "మరియు",
+          "టెక్నాలజీ",
+          "కి",
+          "ప్రసిద్ధి",
+          "చెందింది",
+          "."
+        ],
+        "token_count": 10,
+        "word_count": 6,
+        "fertility": 1.6667
+      },
+      {
+        "input": "సాంకేతికత మానవ జీవితాన్ని ఎంతో సులభతరం చేసింది.",
+        "tokens": [
+          "సాంకేతిక",
+          "త",
+          "మానవ",
+          "జీవితాన్ని",
+          "ఎంతో",
+          "సులభ",
+          "తరం",
+          "చేసింది",
+          "."
+        ],
+        "token_count": 9,
+        "word_count": 6,
+        "fertility": 1.5
+      },
+      {
+        "input": "ప్రకృతి అందాలు మన మనసును ప్రశాంతంగా ఉంచుతాయి.",
+        "tokens": [
+          "ప్రకృతి",
+          "అంద",
+          "ాలు",
+          "మన",
+          "మనసు",
+          "ను",
+          "ప్రశాంతంగా",
+          "ఉంచు",
+          "తాయి",
+          "."
+        ],
+        "token_count": 10,
+        "word_count": 6,
+        "fertility": 1.6667
+      }
+    ],
+    "unk_token_stats": {
+      "docs_evaluated": 79742,
+      "total_words": 2669480,
+      "total_tokens": 4530817,
+      "unk_count": 0,
+      "unk_rate_pct": 0.0,
+      "fertility": 1.6973,
+      "oov_word_examples": []
+    }
+  }
+}

@@ -1,0 +1,151 @@
+{
+  "seed": 42,
+  "leakage_controls": {
+    "train_names": [
+      "రమేష్",
+      "సురేష్",
+      "అనిత",
+      "విజయ్",
+      "ప్రియ",
+      "రాహుల్",
+      "దివ్య",
+      "కిరణ్",
+      "పూజ",
+      "వరుణ్",
+      "లక్ష్మి",
+      "నాగేశ్",
+      "స్వాతి",
+      "హరీష్",
+      "మీనా",
+      "అరుణ్",
+      "కవిత",
+      "సందీప్",
+      "భాను",
+      "తేజ",
+      "ప్రసాద్",
+      "మహేష్",
+      "సుధాకర్",
+      "లావణ్య",
+      "జ్యోతి",
+      "సత్య",
+      "స్రవంతి",
+      "రాఘవ",
+      "భవానీ",
+      "రాజేష్",
+      "వంశీ",
+      "కార్ತಿక్",
+      "సుప్రియ",
+      "రమ్య",
+      "అఖిల్"
+    ],
+    "held_out_names": [
+      "శ్రీను",
+      "మాధవి",
+      "గోపి",
+      "సునీత",
+      "చైతన్య",
+      "అనుష",
+      "రవి",
+      "పద్మ",
+      "యశ్వంత్",
+      "కీర్తి",
+      "భార్గవ్",
+      "సమీర",
+      "వినయ్",
+      "దీపిక",
+      "నవీన్"
+    ],
+    "train_attributes": [
+      "height",
+      "age",
+      "money",
+      "weight"
+    ],
+    "held_out_attributes": [
+      "points",
+      "temperature",
+      "distance"
+    ],
+    "note": "Val/test examples use disjoint person names and disjoint chain attributes (points/temperature/distance) versus train (height/age/money/weight)."
+  },
+  "template_categories": [
+    "Direct comparisons",
+    "Numerical comparisons",
+    "2-hop comparisons",
+    "3-hop comparisons",
+    "4-hop comparisons",
+    "Greater/smaller/equal cases"
+  ],
+  "train": {
+    "n": 10000,
+    "by_category": {
+      "3-hop comparisons": 1667,
+      "Direct comparisons": 1667,
+      "Numerical comparisons": 1667,
+      "4-hop comparisons": 1666,
+      "Greater/smaller/equal cases": 1666,
+      "2-hop comparisons": 1667
+    },
+    "by_hop": {
+      "1": 5000,
+      "2": 1667,
+      "3": 1667,
+      "4": 1666
+    }
+  },
+  "val": {
+    "n": 240,
+    "by_category": {
+      "4-hop comparisons": 40,
+      "3-hop comparisons": 40,
+      "2-hop comparisons": 40,
+      "Numerical comparisons": 40,
+      "Greater/smaller/equal cases": 40,
+      "Direct comparisons": 40
+    },
+    "by_hop": {
+      "1": 120,
+      "2": 40,
+      "3": 40,
+      "4": 40
+    }
+  },
+  "test": {
+    "n": 240,
+    "by_category": {
+      "Numerical comparisons": 40,
+      "2-hop comparisons": 40,
+      "Direct comparisons": 40,
+      "4-hop comparisons": 40,
+      "Greater/smaller/equal cases": 40,
+      "3-hop comparisons": 40
+    },
+    "by_hop": {
+      "1": 120,
+      "2": 40,
+      "3": 40,
+      "4": 40
+    }
+  },
+  "paths": {
+    "train_full": "/home/sanjana/Documents/7/LMA/individual-project-sanjanasheela/language_H/finetuning/data/train_full.jsonl",
+    "val": "/home/sanjana/Documents/7/LMA/individual-project-sanjanasheela/language_H/finetuning/data/val_fixed.jsonl",
+    "test": "/home/sanjana/Documents/7/LMA/individual-project-sanjanasheela/language_H/finetuning/data/test_fixed.jsonl",
+    "train_subsets": {
+      "100": "/home/sanjana/Documents/7/LMA/individual-project-sanjanasheela/language_H/finetuning/data/train_samples_100.jsonl",
+      "250": "/home/sanjana/Documents/7/LMA/individual-project-sanjanasheela/language_H/finetuning/data/train_samples_250.jsonl",
+      "500": "/home/sanjana/Documents/7/LMA/individual-project-sanjanasheela/language_H/finetuning/data/train_samples_500.jsonl",
+      "1000": "/home/sanjana/Documents/7/LMA/individual-project-sanjanasheela/language_H/finetuning/data/train_samples_1000.jsonl",
+      "1500": "/home/sanjana/Documents/7/LMA/individual-project-sanjanasheela/language_H/finetuning/data/train_samples_1500.jsonl",
+      "2000": "/home/sanjana/Documents/7/LMA/individual-project-sanjanasheela/language_H/finetuning/data/train_samples_2000.jsonl",
+      "2500": "/home/sanjana/Documents/7/LMA/individual-project-sanjanasheela/language_H/finetuning/data/train_samples_2500.jsonl",
+      "3000": "/home/sanjana/Documents/7/LMA/individual-project-sanjanasheela/language_H/finetuning/data/train_samples_3000.jsonl",
+      "4000": "/home/sanjana/Documents/7/LMA/individual-project-sanjanasheela/language_H/finetuning/data/train_samples_4000.jsonl",
+      "5000": "/home/sanjana/Documents/7/LMA/individual-project-sanjanasheela/language_H/finetuning/data/train_samples_5000.jsonl",
+      "6000": "/home/sanjana/Documents/7/LMA/individual-project-sanjanasheela/language_H/finetuning/data/train_samples_6000.jsonl",
+      "7500": "/home/sanjana/Documents/7/LMA/individual-project-sanjanasheela/language_H/finetuning/data/train_samples_7500.jsonl",
+      "8000": "/home/sanjana/Documents/7/LMA/individual-project-sanjanasheela/language_H/finetuning/data/train_samples_8000.jsonl",
+      "10000": "/home/sanjana/Documents/7/LMA/individual-project-sanjanasheela/language_H/finetuning/data/train_samples_10000.jsonl"
+    }
+  }
+}

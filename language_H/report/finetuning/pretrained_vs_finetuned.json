@@ -1,0 +1,103 @@
+{
+  "eval_file": "finetuning/data/test_fixed.jsonl",
+  "pretrained": {
+    "checkpoint": "/home/sanjana/Documents/7/LMA/individual-project-sanjanasheela/language_H/checkpoints/checkpoints/step_0045000.pt",
+    "exact_match": 1.25,
+    "val_loss": 6.679368578486082,
+    "val_perplexity": 795.8164577067078,
+    "category_accuracy": {
+      "Greater/smaller/equal cases": {
+        "correct": 0,
+        "total": 40
+      },
+      "Direct comparisons": {
+        "correct": 0,
+        "total": 40
+      },
+      "3-hop comparisons": {
+        "correct": 1,
+        "total": 40
+      },
+      "4-hop comparisons": {
+        "correct": 0,
+        "total": 40
+      },
+      "Numerical comparisons": {
+        "correct": 1,
+        "total": 40
+      },
+      "2-hop comparisons": {
+        "correct": 1,
+        "total": 40
+      }
+    },
+    "hop_accuracy": {
+      "1": {
+        "correct": 1,
+        "total": 120
+      },
+      "3": {
+        "correct": 1,
+        "total": 40
+      },
+      "4": {
+        "correct": 0,
+        "total": 40
+      },
+      "2": {
+        "correct": 1,
+        "total": 40
+      }
+    }
+  },
+  "finetuned": {
+    "checkpoint": "/home/sanjana/Documents/7/LMA/individual-project-sanjanasheela/language_H/finetuned_checkpoints/finetuned_train_full.pt",
+    "exact_match": 58.75,
+    "val_loss": 0.7699633439191106,
+    "val_perplexity": 2.159687086669401,
+    "category_accuracy": {
+      "Greater/smaller/equal cases": {
+        "correct": 40,
+        "total": 40
+      },
+      "Direct comparisons": {
+        "correct": 30,
+        "total": 40
+      },
+      "3-hop comparisons": {
+        "correct": 12,
+        "total": 40
+      },
+      "4-hop comparisons": {
+        "correct": 11,
+        "total": 40
+      },
+      "Numerical comparisons": {
+        "correct": 36,
+        "total": 40
+      },
+      "2-hop comparisons": {
+        "correct": 12,
+        "total": 40
+      }
+    },
+    "hop_accuracy": {
+      "1": {
+        "correct": 106,
+        "total": 120
+      },
+      "3": {
+        "correct": 12,
+        "total": 40
+      },
+      "4": {
+        "correct": 11,
+        "total": 40
+      },
+      "2": {
+        "correct": 12,
+        "total": 40
+      }
+    }
+  }
+}

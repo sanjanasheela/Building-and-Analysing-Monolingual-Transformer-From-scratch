@@ -1,0 +1,73 @@
+model_name: run51
+language: Telugu
+tokenizer:
+  type: BPE
+  vocab_size: 7500
+  tokenizer_path: tokenizer_runs/bpe_vocab_7500/tokenizer.json
+  vocab_path: tokenizer_runs/bpe_vocab_7500/vocab.json
+model:
+  d_model: 512
+  num_layers: 6
+  num_heads: 8
+  ffn_dim: 1600
+  context_length: 512
+  dropout: 0.1
+  positional_encoding: rope
+  rope_theta: 10000.0
+  normalization: pre_norm
+  activation: SWIGLU
+  tie_embeddings: true
+  init_std: 0.02
+training:
+  batch_size: 16
+  gradient_accumulation_steps: 4
+  optimizer: AdamW
+  learning_rate: 0.001
+  min_learning_rate: 1.0e-04
+  weight_decay: 0.1
+  beta1: 0.9
+  beta2: 0.95
+  epsilon: 1.0e-08
+  scheduler: cosine
+  warmup_steps: 3000
+  num_epochs: 1
+  target_tokens: 500000000
+  max_grad_norm: 1.0
+  eval_batches: 20
+  eval_interval: 1000
+  checkpoint_interval: 1000
+  seed: 42
+data:
+  train_path: data/final_data_set/train.txt
+  validation_path: data/final_data_set/val.txt
+  test_path: data/final_data_set/test.txt
+  shard_dir: token_shards
+  val_bin: token_shards/val.bin
+  test_bin: token_shards/test.bin
+  context_length: 512
+  num_workers: 2
+  pin_memory: true
+checkpoint:
+  output_dir: checkpoints
+  resume_from: null
+  save_optimizer: true
+  save_scheduler: true
+  save_config: true
+evaluation:
+  eval_batch_size: 16
+  temperatures:
+  - 0.5
+  - 1.0
+  - 1.5
+  max_generation_length: 256
+logging:
+  log_dir: logs
+  log_interval: 100
+  save_loss_curve: true
+  train_log_filename: train_log.jsonl
+  checkpoint_log_filename: checkpoint_analysis.txt
+  loss_curve_filename: loss_curve.png
+  loss_curve_title: "Training Loss Curve — Model H Loss Optimized (Telugu)"
+hardware:
+  device: cuda
+  mixed_precision: true

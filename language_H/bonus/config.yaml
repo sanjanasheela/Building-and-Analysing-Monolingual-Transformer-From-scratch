@@ -1,0 +1,86 @@
+model_name: telugu_ablation_no_positional_embeddings
+language: Telugu
+
+tokenizer:
+  type: BPE
+  vocab_size: 7500
+  tokenizer_path: tokenizer_runs/bpe_vocab_7500/tokenizer.json
+  vocab_path: tokenizer_runs/bpe_vocab_7500/vocab.json
+
+model:
+  d_model: 512
+  num_layers: 6
+  num_heads: 8
+  ffn_dim: 1600
+  context_length: 512
+  dropout: 0.1
+  positional_encoding: none    # Ablation: All positional embeddings removed (no RoPE, no learned)
+  normalization: pre_norm
+  activation: SWIGLU
+  tie_embeddings: true
+  init_std: 0.02
+
+training:
+  batch_size: 16
+  gradient_accumulation_steps: 1
+  optimizer: AdamW
+  learning_rate: 0.0008
+  min_learning_rate: 8.0e-05
+  weight_decay: 0.1
+  beta1: 0.9
+  beta2: 0.95
+  epsilon: 1.0e-08
+  scheduler: cosine
+  warmup_steps: 3000
+  target_tokens: 122880000     # 15,000 steps * 16 batch * 512 ctx
+  max_steps: 15000             # Minimum 15,000 steps
+  max_grad_norm: 1.0
+  eval_batches: 20
+  eval_interval: 1000
+  checkpoint_interval: 1000
+  seed: 42
+
+data:
+  train_path: data/final_data_set_7500/train.txt
+  validation_path: data/final_data_set_7500/val.txt
+  test_path: data/final_data_set_7500/test.txt
+  shard_dir: token_shards_7500
+  val_bin: token_shards_7500/val.bin
+  test_bin: token_shards_7500/test.bin
+  test_txt: data/final_data_set_7500/test.txt
+  context_length: 512
+  num_workers: 2
+  pin_memory: true
+
+checkpoint:
+  output_dir: bonus/checkpoints
+  resume_from: null
+  save_optimizer: true
+  save_scheduler: true
+  save_config: true
+
+evaluation:
+  eval_batch_size: 16
+  temperatures:
+    - 0.0
+    - 0.2
+    - 0.5
+    - 0.8
+    - 1.0
+    - 1.2
+    - 1.5
+  max_generation_length: 32
+  num_samples: 250
+
+logging:
+  log_dir: bonus/logs
+  log_interval: 100
+  save_loss_curve: true
+  train_log_filename: train_log.jsonl
+  checkpoint_log_filename: checkpoint_analysis.txt
+  loss_curve_filename: loss_curve.png
+  loss_curve_title: "Training Loss Curve — Model H Ablation (No Positional Embeddings)"
+
+hardware:
+  device: cuda
+  mixed_precision: true
